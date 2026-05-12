@@ -31,7 +31,7 @@
       grid(
         columns: (1fr, 4fr, 1fr),
         align: (left + horizon, center + horizon, right + horizon),
-        image("../imgs/unsaac_logo.png", height: h), middle, image("../imgs/facultad_logo.png", height: h),
+        image("../../imgs/unsaac_logo.png", height: h), middle, image("../../imgs/facultad_logo.png", height: h),
       )
     })
   ]
