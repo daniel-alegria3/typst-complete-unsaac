@@ -1,4 +1,4 @@
-#let src_block(title: none, content) = {
+#let src-block(title: none, content) = {
   let stroke = black + 0.5pt
   let radius = 5pt
   show raw: set text(
@@ -30,9 +30,9 @@
 
 /// This uses a hack, path handling may be improved in the future
 /// https://forum.typst.app/t/why-are-paths-always-relative-to-the-current-file/306/5
-#let src_file(..path, lang: "txt") = {
+#let src-file(..path, lang: "txt") = {
   let filename = path.at(0)
-  src_block(
+  src-block(
     title: filename,
     raw(read(..path), lang: lang),
   )

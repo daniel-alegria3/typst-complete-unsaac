@@ -1,4 +1,6 @@
-#import "fechas.typ": activity_end_date, activity_start_date, final_period, set_practice_params, total_hours
+#import "fechas.typ": (
+  activity_end_date, activity_start_date, final_period, set_practice_params, total_hours,
+)
 
 #let _caratula(
   title: none,
@@ -31,7 +33,9 @@
       grid(
         columns: (1fr, 4fr, 1fr),
         align: (left + horizon, center + horizon, right + horizon),
-        image("../../imgs/unsaac_logo.png", height: h), middle, image("../../imgs/facultad_logo.png", height: h),
+        image("../../imgs/unsaac_logo.png", height: h),
+        middle,
+        image("../../imgs/facultad_logo.png", height: h),
       )
     })
   ]
@@ -79,7 +83,7 @@
   )
 }
 
-#let print_activities_table(activities) = {
+#let print-activities-table(activities) = {
   if activities == none or activities.len() == 0 { return }
 
   let tcolors = (
@@ -119,7 +123,7 @@
   }
 }
 
-#let print_activities_detailed(activities) = {
+#let print-activities-detailed(activities) = {
   if activities == none or activities.len() == 0 { return }
 
   for act in activities {
@@ -140,7 +144,7 @@
   }
 }
 
-#let practica_plan_actividades(
+#let doc-practica-plan-actividades(
   title: none,
   author: none,
   id: none,
@@ -213,7 +217,7 @@
   v(1fr)
 }
 
-#let practica_informe_parcial(
+#let doc-practica-informe-parcial(
   title: none,
   author: none,
   id: none,
@@ -304,4 +308,3 @@
   )
   v(1fr)
 }
-

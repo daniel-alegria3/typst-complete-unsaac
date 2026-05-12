@@ -1,4 +1,4 @@
-#let tarea(
+#let doc-tarea(
   course: none,
   title: none,
   professor: none,
@@ -15,8 +15,21 @@
   let escudos_ratio = 70%
 
   // Temp fix for 'lang: es' not working on datetime()
-  let months = ("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre")
-  let get_month(date) = months.at(date.month()-1)
+  let months = (
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  )
+  let get_month(date) = months.at(date.month() - 1)
 
   //================================ {General} =================================
   set page(
@@ -52,11 +65,11 @@
 
   //=============================== {Overrides} ================================
   show outline.entry.where(
-    level: 1
+    level: 1,
   ): set block(above: 1.4em)
 
   show heading.where(
-    level: 1
+    level: 1,
   ): set block(below: 1em)
 
   set list(
@@ -74,14 +87,13 @@
     full: true,
     numbering: (..args) => {
       let nums = args.pos()
-      let style_per_level = ( "1.", "a)", "(i)" )
+      let style_per_level = ("1.", "a)", "(i)")
       numbering(
-        style_per_level.at(nums.len()-1, default: "1."),
-        nums.at(nums.len()-1)
+        style_per_level.at(nums.len() - 1, default: "1."),
+        nums.at(nums.len() - 1),
       )
-    }
+    },
   )
-
 
   // show heading: it => [
   //   #set align(center)
@@ -102,7 +114,7 @@
   page(
     margin: (
       rest: margin + caratula_margin_ratio,
-    )
+    ),
   )[
     #place(
       float: true,
@@ -112,35 +124,35 @@
     )[
       #set par(first-line-indent: 0em)
 
-      #text(fontsize*1.35)[
+      #text(fontsize * 1.35)[
         UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO
       ]
 
-      #text(fontsize*1.4)[
+      #text(fontsize * 1.4)[
         FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA
       ]
 
-      #text(fontsize*1.26)[
+      #text(fontsize * 1.26)[
         ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS
       ]
 
       #grid(
         columns: (1fr, 1fr),
         image("../imgs/unsaac_logo.png", width: escudos_ratio),
-        image("../imgs/facultad_logo.png", width: escudos_ratio)
+        image("../imgs/facultad_logo.png", width: escudos_ratio),
       )
 
-      #text(fontsize*1.35)[
+      #text(fontsize * 1.35)[
         #course
       ]
 
       #v(1em)
-      #text(fontsize*1.35)[
+      #text(fontsize * 1.35)[
         #smallcaps([*#title*])
       ]
 
       #v(1.5em)
-      #text(fontsize*1.1)[
+      #text(fontsize * 1.1)[
         #align(left)[
           #set par(justify: false)
 
@@ -156,10 +168,12 @@
               row-gutter: 1em,
               align: right,
 
-              ..authors.map(author => (
-                author.name,
-                [(#author.id)]
-              )).flatten(),
+              ..authors
+                .map(author => (
+                  author.name,
+                  [(#author.id)],
+                ))
+                .flatten(),
             )
           ] else if authors.len() == 1 [
             #let (name, id) = authors.at(0)
@@ -171,7 +185,7 @@
 
       #v(1fr)
       // # NOTE: bottom is not what puts it near foot of page
-      #text(fontsize*1.2)[
+      #text(fontsize * 1.2)[
         Perú \
         #if date != none {
           date

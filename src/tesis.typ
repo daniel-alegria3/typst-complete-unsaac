@@ -1,4 +1,4 @@
-#let tesis(
+#let doc-tesis(
   title: none,
   orientator: none,
   date: none,
