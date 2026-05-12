@@ -53,6 +53,7 @@
     set std.align(horizon)
     // context page.margin
     block(
+      breakable: false,
       width: 100%,
       inset: 0.25em,
       {
@@ -123,8 +124,8 @@
               #set par(spacing: 0.75em)
               #smallcaps([Integrantes]):
               #grid(
-                align: (left, right),
-                columns: calc.ceil(info.authors.len() / 5),
+                align: (left, left),
+                columns: calc.ceil(info.authors.len() / 4),
                 gutter: 3pt,
                 inset: (
                   y: 2pt,
