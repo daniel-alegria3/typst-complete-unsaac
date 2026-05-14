@@ -56,10 +56,13 @@
       institution: [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO],
       faculty: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
       school: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
-      logo: emoji.city,
+      // logo: emoji.city,
     ),
     config-common(
       datetime-format: "[day]-[month]-[year]",
+      // TODO: these two, think how to config in touying-0.7.3
+      slide-level: 1,
+      new-section-slide-fn: none,
       // handout: true, // omit animations
       // show-notes-on-second-screen: right,
     ),
@@ -68,6 +71,7 @@
       // header-ascent: 0em,
       // footer-descent: 0em,
     ),
+    config-methods(cover: utils.semi-transparent-cover.with(alpha: 85%)),
     config-colors(
       primary: rgb("#eb811b"),
       primary-light: rgb("#d6c6b7"),

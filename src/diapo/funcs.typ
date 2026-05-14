@@ -52,7 +52,6 @@
           ]
         }
 
-
         // components.left-and-right(
         {
           set std.align(center + horizon)
@@ -79,35 +78,49 @@
         line(length: 100%, stroke: .05em + self.colors.primary)
 
         set text(size: .8em)
-        if info.course != none {
-          block(spacing: 1em)[
-            #smallcaps([Curso]): #h(1em) #info.course
-          ]
-        }
 
-        if info.professor != none {
-          block(spacing: 1em)[
-            #smallcaps([Docente]): #h(1em) #info.professor
-          ]
+        let sep = ":"
+        let rows = ()
+        if info.course != none { rows += (smallcaps[Curso], [#sep], [#info.course]) }
+        if info.professor != none { rows += (smallcaps[Docente], [#sep], [#info.professor]) }
+        if info.authors != none {
+          if info.authors.len() > 1 {
+            rows += (smallcaps[Integrantes], [#sep], [])
+          } else if infor.authors.len() == 1 {
+            let (name, id) = info.authors.at(0)
+            rows += (smallcaps[Alumno], [#sep], [#name (#id)])
+          }
         }
+        grid(
+          columns: (auto, auto, auto),
+          gutter: 0.80em,
+          ..rows,
+        )
 
         if info.authors != none {
           block(spacing: 1em)[
 
             #if info.authors.len() > 1 [
               #set par(spacing: 0.75em)
-              #smallcaps([Integrantes]):
-              #grid(
-                align: (left, left),
-                columns: calc.ceil(info.authors.len() / 4),
-                gutter: 3pt,
-                inset: (
-                  y: 2pt,
-                ),
-                ..info.authors.map(author => [
-                  #h(0.5em) - #author.name #h(1em) (#author.id) #h(2em)
-                ])
-              )
+              #let cols = calc.ceil(info.authors.len() / 4)
+              #pad(left: 1em)[
+                #grid(
+                  align: (left, left) * cols,
+                  columns: cols * 2,
+                  gutter: 3pt,
+                  column-gutter: (0.8em, 2em) * cols,
+                  inset: (
+                    y: 2pt,
+                  ),
+                  ..info
+                    .authors
+                    .map(author => (
+                      [- #author.name],
+                      [(#author.id)],
+                    ))
+                    .flatten()
+                )
+              ]
             ] else if info.authors.len() == 1 [
               #let (name, id) = info.authors.at(0)
               #smallcaps([Alumno]): #h(1em) #name (#id)
