@@ -236,15 +236,15 @@
   set_practice_params(period_start, hours_per_day)
 
   let margin = 1.5cm
-  let margin_side_ratio = 2%
+  let binding_margin = 2%
 
   set page(
     paper: "a4",
     margin: (
       rest: 1.5cm,
-      left: margin + margin_side_ratio,
-      // inside: margin + margin_side_ratio,
-      // outside: margin - margin_side_ratio,
+      left: margin + binding_margin,
+      // inside: margin + binding_margin,
+      // outside: margin - binding_margin,
     ),
   )
   set text(

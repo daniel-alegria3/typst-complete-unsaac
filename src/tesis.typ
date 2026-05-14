@@ -5,11 +5,8 @@
   authors: (),
   doc,
 ) = {
-  let fontsize = 11pt
-
   let margin = 2.54cm
-  let margin_side_ratio = 2%
-  let caratula_margin_ratio = 2%
+  let binding_margin = 2%
 
   let escudos_ratio = 50%
 
@@ -34,8 +31,8 @@
     paper: "a4",
     margin: (
       rest: margin,
-      inside: margin + margin_side_ratio,
-      outside: margin - margin_side_ratio,
+      inside: margin + binding_margin,
+      outside: margin - binding_margin,
     ),
     // header: align(right + horizon)[
     //   _ #title _
@@ -45,7 +42,7 @@
   )
   set text(
     font: "TeX Gyre Termes",
-    size: fontsize,
+    size: 11pt,
     spacing: 0.35em,
     lang: "es",
     region: "pe",
@@ -93,7 +90,6 @@
     },
   )
 
-
   // show heading: it => [
   //   #set align(center)
   //   #set text(13pt, weight: "regular")
@@ -112,7 +108,7 @@
   //================================ {Caratula} ================================
   page(
     margin: (
-      rest: margin + caratula_margin_ratio,
+      rest: margin,
     ),
   )[
     #place(
@@ -121,32 +117,28 @@
       scope: "parent",
       clearance: 2em,
     )[
-      #let _fontsize = 10pt
-
       #set par(first-line-indent: 0em)
-      #set text(size: _fontsize)
 
       #image("../imgs/unsaac_logo.png", width: escudos_ratio)
 
-      #text(_fontsize * 1.35)[
+      #text(1.23em)[
         UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO
       ]
 
-      #v(1.5em)
+      #v(1.3em)
 
-      #text(_fontsize * 1.35)[
+      #text(1.23em)[
         PLAN DE TESIS
       ]
 
-      #let _stroke = 2.5pt
-      #text(_fontsize * 1.35)[
-        #line(length: 100%, stroke: _stroke)
+      #text(1.23em)[
+        #line(length: 100%, stroke: 2.5pt)
         #smallcaps([*#title*])
-        #line(length: 100%, stroke: _stroke)
+        #line(length: 100%, stroke: 2.5pt)
       ]
 
-      #v(2.5em)
-      #text(_fontsize * 1.2)[
+      #v(2.3em)
+      #text(1.1em)[
         #set par(justify: false)
 
         #grid(
@@ -176,8 +168,7 @@
 
 
       #v(1fr)
-      // # NOTE: bottom is not what puts it near foot of page
-      #text(_fontsize * 1.2)[
+      #text(1.1em)[
         Perú,
         #if date != none {
           date
@@ -186,14 +177,13 @@
           [ #months.at(today.month() - 1) del #today.year() ]
         }
       ]
-
       #v(1em)
 
-      #text(_fontsize * 1.0)[
+      #text(0.91em)[
         ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS
       ]
 
-      #text(_fontsize * 0.86)[
+      #text(0.78em)[
         FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA
       ]
     ]

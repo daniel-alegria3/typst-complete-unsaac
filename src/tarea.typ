@@ -6,11 +6,8 @@
   authors: (),
   doc,
 ) = {
-  let fontsize = 11pt
-
   let margin = 2.54cm
-  let margin_side_ratio = 0%
-  let caratula_margin_ratio = 2%
+  let binding_margin = 0%
 
   let escudos_ratio = 70%
 
@@ -36,8 +33,8 @@
     paper: "a4",
     margin: (
       rest: margin,
-      inside: margin + margin_side_ratio,
-      outside: margin - margin_side_ratio,
+      inside: margin + binding_margin,
+      outside: margin - binding_margin,
     ),
     // header: align(right + horizon)[
     //   _ #title _
@@ -47,7 +44,7 @@
   )
   set text(
     font: "TeX Gyre Termes",
-    size: fontsize,
+    size: 11pt,
     spacing: 0.35em,
     lang: "es",
     region: "pe",
@@ -113,7 +110,7 @@
   //================================ {Caratula} ================================
   page(
     margin: (
-      rest: margin + caratula_margin_ratio,
+      rest: margin,
     ),
   )[
     #place(
@@ -124,35 +121,39 @@
     )[
       #set par(first-line-indent: 0em)
 
-      #text(fontsize * 1.35)[
+      #text(1.35em)[
         UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO
       ]
 
-      #text(fontsize * 1.4)[
+      #text(1.4em)[
         FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA
       ]
 
-      #text(fontsize * 1.26)[
+      #text(1.26em)[
         ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS
       ]
 
+      // #v(1fr)
+      #v(3em)
       #grid(
         columns: (1fr, 1fr),
         image("../imgs/unsaac_logo.png", width: escudos_ratio),
         image("../imgs/facultad_logo.png", width: escudos_ratio),
       )
+      #v(3em)
+      // #v(1fr)
 
-      #text(fontsize * 1.35)[
-        #course
+      #text(1.35em)[
+        #smallcaps[#course]
       ]
 
       #v(1em)
-      #text(fontsize * 1.35)[
-        #smallcaps([*#title*])
+      #text(1.35em)[
+        *#title*
       ]
 
       #v(1.5em)
-      #text(fontsize * 1.1)[
+      #text(1.1em)[
         #align(left)[
           #set par(justify: false)
 
@@ -185,7 +186,7 @@
 
       #v(1fr)
       // # NOTE: bottom is not what puts it near foot of page
-      #text(fontsize * 1.2)[
+      #text(1.2em)[
         Perú \
         #if date != none {
           date

@@ -4,7 +4,7 @@
   show raw: set text(
     font: "TeX Gyre Cursor",
     ligatures: false,
-    size: 1em * 1.25,
+    size: 1em,
     spacing: 100%,
   )
   block(stroke: stroke, radius: radius, clip: true, fill: rgb("#f2f2f2"))[
