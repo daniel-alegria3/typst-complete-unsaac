@@ -39,7 +39,7 @@
           block[
             #grid(
               columns: (2fr, 9fr, 2fr),
-              image("../../imgs/unsaac_logo.png"),
+              image("../imgs/unsaac_logo.png"),
               [
                 #if info.institution != none { info.institution }
 
@@ -47,7 +47,7 @@
 
                 #if info.school != none { info.school }
               ],
-              image("../../imgs/facultad_logo.png"),
+              image("../imgs/facultad_logo.png"),
             )
           ]
         }
@@ -86,7 +86,7 @@
         if info.authors != none {
           if info.authors.len() > 1 {
             rows += (smallcaps[Integrantes], [#sep], [])
-          } else if infor.authors.len() == 1 {
+          } else if info.authors.len() == 1 {
             let (name, id) = info.authors.at(0)
             rows += (smallcaps[Alumno], [#sep], [#name (#id)])
           }
@@ -121,9 +121,6 @@
                     .flatten()
                 )
               ]
-            ] else if info.authors.len() == 1 [
-              #let (name, id) = info.authors.at(0)
-              #smallcaps([Alumno]): #h(1em) #name (#id)
             ]
           ]
         }

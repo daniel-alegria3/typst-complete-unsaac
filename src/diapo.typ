@@ -26,7 +26,7 @@
   [#months.at(date.month() - 1) del #date.year()]
 }
 
-#import "funcs.typ": title-slide
+#import "diapo-funcs.typ": title-slide
 
 /// show rule template
 #let doc-diapo(
