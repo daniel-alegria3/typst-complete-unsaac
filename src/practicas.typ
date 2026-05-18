@@ -1,6 +1,14 @@
-#import "fechas.typ": (
-  activity_end_date, activity_start_date, final_period, set_practice_params, total_hours,
+#import "@preview/gantty:0.5.1": gantt
+#import "practicas-utils.typ": (
+  activity_end_date, activity_start_date, calc_total_hours, get_period_end, get_period_end_str,
+  normalize_activity,
 )
+
+#let DATE_FMT_STR = "[day]/[month]/[year]"
+
+#let _activities = state("activities", none)
+#let _period_start = state("period_start", none)
+#let _hours_per_day = state("hours_per_day", none)
 
 #let _caratula(
   title: none,
@@ -33,9 +41,9 @@
       grid(
         columns: (1fr, 4fr, 1fr),
         align: (left + horizon, center + horizon, right + horizon),
-        image("../../imgs/unsaac_logo.png", height: h),
+        image("../imgs/unsaac_logo.png", height: h),
         middle,
-        image("../../imgs/facultad_logo.png", height: h),
+        image("../imgs/facultad_logo.png", height: h),
       )
     })
   ]
@@ -83,67 +91,6 @@
   )
 }
 
-#let print-activities-table(activities) = {
-  if activities == none or activities.len() == 0 { return }
-
-  let tcolors = (
-    header_bg: rgb("#1f4e79"),
-    header_fg: white,
-    odd_row: luma(245),
-    even_row: none,
-  )
-
-  if activities.len() >= 1 {
-    table(
-      columns: (auto, 2fr, 4fr, auto, auto),
-      align: (center, left, left, center, center),
-      fill: (x, y) => if calc.odd(y) {
-        tcolors.odd_row
-      } else {
-        tcolors.even_row
-      },
-      table.header(
-        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Nro]),
-        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Actividad]),
-        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Descripción]),
-        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Fecha Inicio]),
-        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Fecha Fin]),
-      ),
-      ..activities
-        .enumerate(start: 1)
-        .map(((idx, act)) => (
-          [#idx],
-          act.at("activity", default: none),
-          act.at("description", default: none),
-          [#activity_start_date()],
-          [#activity_end_date(act.at("duration", default: 0))],
-        ))
-        .flatten(),
-    )
-  }
-}
-
-#let print-activities-detailed(activities) = {
-  if activities == none or activities.len() == 0 { return }
-
-  for act in activities {
-    let activity = act.at("activity", default: none)
-    let details = act.at("details", default: none)
-    let duration = act.at("duration", default: 0)
-
-    if activity == none { continue }
-
-    let start = activity_start_date()
-    let end = activity_end_date(duration)
-
-    [
-      + *#activity* \ #h(1fr) (#start - #end) \
-        #if details != none { details }
-        #v(1em)
-    ]
-  }
-}
-
 #let doc-practica-plan-actividades(
   title: none,
   author: none,
@@ -154,13 +101,16 @@
   company: none,
   company_manager: none,
   advisor: none,
+  activities: none,
   hours_per_day: 6,
   exclude_weekends: true,
   exclude_holidays: true,
   doc,
 ) = {
   assert(type(period_start) == datetime, message: "'period_start' must be a datetime")
-  set_practice_params(period_start, hours_per_day)
+  _activities.update(activities.map(act => normalize_activity(act, hours_per_day)))
+  _hours_per_day.update(hours_per_day)
+  _period_start.update(period_start)
 
   set page(
     paper: "a4",
@@ -201,9 +151,9 @@
     id: id,
     company: company,
     field: field,
-    period: final_period(),
+    period: get_period_end_str(period_start, hours_per_day, activities),
     schedule: schedule,
-    hours: total_hours(),
+    hours: calc_total_hours(activities),
   )
 
   doc
@@ -227,13 +177,16 @@
   company: none,
   company_manager: none,
   advisor: none,
+  activities: none,
   hours_per_day: 6,
   exclude_weekends: true,
   exclude_holidays: true,
   doc,
 ) = {
   assert(type(period_start) == datetime, message: "'period_start' must be a datetime")
-  set_practice_params(period_start, hours_per_day)
+  _activities.update(activities.map(act => normalize_activity(act, hours_per_day)))
+  _hours_per_day.update(hours_per_day)
+  _period_start.update(period_start)
 
   let margin = 1.5cm
   let binding_margin = 2%
@@ -296,8 +249,8 @@
     company: company,
     boss: company_manager,
     field: field,
-    period: final_period(),
-    hours: total_hours(),
+    period: get_period_end_str(period_start, hours_per_day, activities),
+    hours: calc_total_hours(activities),
   )
 
   doc
@@ -307,4 +260,122 @@
     advisor: advisor,
   )
   v(1fr)
+}
+
+#let print-activities-table(activities: none) = {
+  context {
+    let acts = if activities != none { activities } else { _activities.get() }
+    if acts == none or acts.len() == 0 { return }
+
+    let tcolors = (
+      header_bg: rgb("#1f4e79"),
+      header_fg: white,
+      odd_row: luma(245),
+      even_row: none,
+    )
+
+    let cum = 0
+    let rows = ()
+    for (idx, act) in acts.enumerate(start: 1) {
+      let start = activity_start_date(_period_start.get(), _hours_per_day.get(), cum)
+      cum += act.at("duracion", default: 0)
+      let end = activity_end_date(_period_start.get(), _hours_per_day.get(), cum)
+      rows.push((
+        [#idx],
+        act.at("nombre", default: none),
+        act.at("parrafo", default: none),
+        [#start.display(DATE_FMT_STR)],
+        [#end.display(DATE_FMT_STR)],
+      ))
+    }
+
+    table(
+      columns: (auto, 2fr, 4fr, auto, auto),
+      align: (center, left, left, center, center),
+      fill: (x, y) => if calc.odd(y) {
+        tcolors.odd_row
+      } else {
+        tcolors.even_row
+      },
+      table.header(
+        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Nro]),
+        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Actividad]),
+        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Descripción]),
+        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Fecha Inicio]),
+        table.cell(fill: tcolors.header_bg, text(fill: tcolors.header_fg)[Fecha Fin]),
+      ),
+      ..rows.flatten(),
+    )
+  }
+}
+
+#let print-activities-detailed(activities: none) = {
+  context {
+    let acts = if activities != none { activities } else { _activities.get() }
+    if acts == none or acts.len() == 0 { return }
+
+    let cum = 0
+    for act in acts {
+      let activity = act.at("nombre", default: none)
+      let details = act.at("parrafo", default: none)
+
+      if activity == none { continue }
+
+      let start = activity_start_date(_period_start.get(), _hours_per_day.get(), cum)
+      cum += act.at("duracion", default: 0)
+      let end = activity_end_date(_period_start.get(), _hours_per_day.get(), cum)
+
+      [
+        + *#activity* \ #h(1fr) (#start.display(DATE_FMT_STR) - #end.display(DATE_FMT_STR)) \
+          #if details != none { details }
+          #v(1em)
+      ]
+    }
+  }
+}
+
+#let print-activities-gantt(activities: none) = {
+  context {
+    let acts = if activities != none { activities } else { _activities.get() }
+    if acts == none or acts.len() == 0 { return }
+
+    let gantt_chart = (
+      tasks: acts
+        .enumerate()
+        .map(((act_i, act)) => (
+          name: [#act.nombre],
+          subtasks: act
+            .lista
+            .enumerate()
+            .map(((i, st)) => {
+              let hours = (
+                acts.slice(0, act_i).fold(0, (acc, x) => acc + x.at("duracion", default: 0))
+                  + act.lista.slice(0, i).fold(0, (acc, x) => acc + x.at("duracion", default: 0))
+              )
+              let start = activity_start_date(_period_start.get(), _hours_per_day.get(), hours)
+              hours += st.at("duracion", default: 0)
+              let end = activity_end_date(_period_start.get(), _hours_per_day.get(), hours)
+
+              // hack to get a one day task displayed on the gantt
+              let end = if st.at("duracion", default: 0) <= _hours_per_day.get() {
+                end + duration(days: 1)
+              } else {
+                end
+              }
+
+              (
+                name: st.at("nombre", default: none),
+                start: start,
+                end: end,
+                // done: end,
+              )
+            }),
+        )),
+    )
+
+    [
+      #set text(size: 0.70em)
+      #gantt(gantt_chart)
+    ]
+  }
 }

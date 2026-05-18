@@ -1,1 +1,0 @@
-#import "practicas.typ": *
