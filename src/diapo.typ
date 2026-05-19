@@ -3,9 +3,9 @@
 
 #import themes.metropolis: *
 /// TODO: dont just use metropolis
-/// - dewdrop: how to have its block style
-/// - metropolis: its main vibe
-/// - aqua: to learn to have background
+/// - [x] dewdrop: how to have its block style
+/// - [x] metropolis: its main vibe
+/// - [ ] aqua: to learn to have background
 
 #let doc-diapo(
   titulo: none,
@@ -14,6 +14,11 @@
   docente: none,
   autores: (),
   fecha: none,
+  /// school specific
+  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
+  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  escuela-logo: image("../imgs/escuela_logo.png"),
+  ///
   doc,
 ) = {
   import "@preview/numbly:0.1.0": numbly
@@ -28,10 +33,11 @@
       curso: curso,
       docente: docente,
       autores: autores,
-      fecha: [Perú, #if (fecha != none) { fecha } else { fecha_str(datetime.today()) }],
+      date: [Perú, #if (fecha != none) { fecha } else { fecha_str(datetime.today()) }],
       institution: [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO],
-      faculty: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
-      school: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+      faculty: facultad,
+      school: escuela,
+      school-logo: escuela-logo,
       // logo: emoji.city,
     ),
     config-common(
@@ -97,11 +103,10 @@
           set std.align(center + horizon)
           set text(size: 0.7em)
           set par(spacing: 1em)
-          let image_params = (height: 30%, fit: "cover", width: auto, scaling: auto)
-          block[
+          block(height: 4.45cm)[
             #grid(
               columns: (2fr, 9fr, 2fr),
-              image("../imgs/unsaac_logo.png", ..image_params),
+              image("../imgs/unsaac_logo.png"),
               [
                 #if info.institution != none { info.institution }
 
@@ -109,7 +114,7 @@
 
                 #if info.school != none { info.school }
               ],
-              image("../imgs/facultad_logo.png", ..image_params),
+              info.school-logo,
             )
           ]
         }
@@ -189,7 +194,7 @@
 
         v(1fr)
 
-        if info.fecha != none {
+        if info.date != none {
           set std.align(right + horizon)
           block(spacing: 1em, utils.display-info-date(self))
         }

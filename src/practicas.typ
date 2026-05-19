@@ -21,6 +21,11 @@
   period: none,
   schedule: none,
   hours: none,
+  /// school specific
+  faculty: none,
+  school: none,
+  school-logo: none,
+  ///
 ) = {
   place(
     float: true,
@@ -34,17 +39,18 @@
       let middle = [
         #text(1.55em)[_ #title _] \
         UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO \
-        FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA \
-        ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS \
+        #faculty \
+        #school \
       ]
-      let h = measure(middle, width: size.width * 4 / 6).height * 1.25
-      grid(
-        columns: (1fr, 4fr, 1fr),
-        align: (left + horizon, center + horizon, right + horizon),
-        image("../imgs/unsaac_logo.png", height: h),
-        middle,
-        image("../imgs/facultad_logo.png", height: h),
-      )
+      block(height: 2.95cm)[
+        #grid(
+          columns: (1fr, 4fr, 1fr),
+          // column-gutter: 3em,
+          column-gutter: 10pt,
+          align: (right + horizon, center + horizon, left + horizon),
+          image("../imgs/unsaac_logo.png"), middle, school-logo,
+        )
+      ]
     })
   ]
 
@@ -105,6 +111,11 @@
   horas-por-dia: 6,
   excluir-fin-semana: true, // TODO
   excluir-feriados: true, // TODO
+  /// school specific
+  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
+  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  escuela-logo: image("../imgs/escuela_logo.png"),
+  ///
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
@@ -117,7 +128,7 @@
     flipped: true,
     margin: (
       rest: 1.5cm,
-      top: 1.5cm + 3%,
+      top: 1.5cm,
     ),
   )
   set text(
@@ -154,6 +165,10 @@
     period: get_period_end_str(fecha-inicio, horas-por-dia, actividades),
     schedule: horario,
     hours: calc_total_hours(actividades),
+    ///
+    faculty: facultad,
+    school: escuela,
+    school-logo: escuela-logo,
   )
 
   doc
@@ -181,6 +196,11 @@
   horas-por-dia: 6,
   excluir-fin-semana: true,
   excluir-feriados: true,
+  /// school specific
+  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
+  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  escuela-logo: image("../imgs/escuela_logo.png"),
+  ///
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
@@ -195,7 +215,7 @@
     paper: "a4",
     margin: (
       rest: 1.5cm,
-      left: margin + binding_margin,
+      // left: margin + binding_margin,
       // inside: margin + binding_margin,
       // outside: margin - binding_margin,
     ),
@@ -252,6 +272,10 @@
     period: get_period_end_str(fecha-inicio, horas-por-dia, actividades),
     schedule: horario,
     hours: calc_total_hours(actividades),
+    ///
+    faculty: facultad,
+    school: escuela,
+    school-logo: escuela-logo,
   )
 
   doc

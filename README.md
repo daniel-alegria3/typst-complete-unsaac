@@ -18,6 +18,8 @@ practicas pre-profesionales, diapositivas y tareas en general.
     "Nombre Completo Autor 1",
     "Nombre Completo Autor 2",
   ),
+  // facultad: [],
+  // escuela: [],
 )
 
 #outline(title: "Tabla de Contenido")
@@ -55,6 +57,9 @@ practicas pre-profesionales, diapositivas y tareas en general.
       duracion: 42,
     ),
   ),
+  // facultad: [],
+  // escuela: [],
+  // escuela-logo: image("ejemplo.png"),
 )
 
 
@@ -97,6 +102,9 @@ practicas pre-profesionales, diapositivas y tareas en general.
       ),
     ),
   ),
+  // facultad: [],
+  // escuela: [],
+  // escuela-logo: image("ejemplo.png"),
 )
 
 = Diagrama de actividades
@@ -133,6 +141,9 @@ practicas pre-profesionales, diapositivas y tareas en general.
       codigo: "200002",
     ),
   ),
+  // facultad: [],
+  // escuela: [],
+  // escuela-logo: image("ejemplo.png"),
 )
 
 #set heading(numbering: none)
@@ -172,6 +183,9 @@ acerca de customizacion, ver su (documentacion)[https://touying-typ.github.io/do
       codigo: "200002",
     ),
   ),
+  // facultad: [],
+  // escuela: [],
+  // escuela-logo: image("ejemplo.png"),
 )
 
 /*

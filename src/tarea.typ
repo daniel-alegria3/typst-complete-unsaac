@@ -4,13 +4,17 @@
   curso: none,
   titulo: none,
   docente: none,
-  fecha: none,
+  fecha: auto,
   autores: (),
+  /// school specific
+  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
+  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  escuela-logo: image("../imgs/escuela_logo.png"),
+  ///
   doc,
 ) = {
   let margin = 2.54cm
   let binding_margin = 0%
-  let escudos_ratio = 70%
 
   //================================ {General} =================================
   set page(
@@ -109,21 +113,20 @@
         UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO
       ]
 
-      #text(1.4em)[
-        FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA
-      ]
+      #text(1.40em)[#facultad]
 
-      #text(1.26em)[
-        ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS
-      ]
+      #text(1.26em)[#escuela]
 
       // #v(1fr)
       #v(3em)
-      #grid(
-        columns: (1fr, 1fr),
-        image("../imgs/unsaac_logo.png", width: escudos_ratio),
-        image("../imgs/facultad_logo.png", width: escudos_ratio),
-      )
+
+      #block(height: 6cm)[
+        #grid(
+          columns: (1fr, 1fr),
+          image("../imgs/unsaac_logo.png"), escuela-logo,
+        )
+      ]
+
       #v(3em)
       // #v(1fr)
 
@@ -172,7 +175,7 @@
       // # NOTE: bottom is not what puts it near foot of page
       #text(1.2em)[
         Perú \
-        #if fecha != none [
+        #if fecha != auto [
           #fecha
         ] else [
           #fecha_str(datetime.today())

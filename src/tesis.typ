@@ -5,11 +5,14 @@
   asesor: none,
   fecha: none,
   autores: (),
+  /// school specific
+  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
+  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  ///
   doc,
 ) = {
   let margin = 2.54cm
   let binding_margin = 0%
-  let escudos_ratio = 50%
 
   //================================ {General} =================================
   set page(
@@ -104,7 +107,9 @@
     )[
       #set par(first-line-indent: 0em)
 
-      #image("../imgs/unsaac_logo.png", width: escudos_ratio)
+      #block(height: 8.35cm)[
+        #image("../imgs/unsaac_logo.png"),
+      ]
 
       #text(1.23em)[
         UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO
@@ -163,13 +168,9 @@
       ]
       #v(1em)
 
-      #text(0.91em)[
-        ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS
-      ]
+      #text(0.91em)[#escuela]
 
-      #text(0.78em)[
-        FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA
-      ]
+      #text(0.78em)[#facultad]
     ]
   ]
   pagebreak()
