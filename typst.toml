@@ -1,6 +1,6 @@
 [package]
 name = "unsaac-docs"
-version = "0.2.0"
+version = "0.2.1"
 entrypoint = "lib.typ"
 authors = ["Daniel A. Sallo <ccusdanielalegriasallo7@gmail.com>"]
 license = "MIT"

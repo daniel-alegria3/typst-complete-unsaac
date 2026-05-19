@@ -8,12 +8,12 @@
 /// - aqua: to learn to have background
 
 #let doc-diapo(
-  title: none,
-  subtitle: none,
-  course: none,
-  professor: none,
-  authors: (),
-  date: none,
+  titulo: none,
+  subtitulo: none,
+  curso: none,
+  docente: none,
+  autores: (),
+  fecha: none,
   doc,
 ) = {
   import "@preview/numbly:0.1.0": numbly
@@ -21,14 +21,14 @@
   show: metropolis-theme.with(
     aspect-ratio: "16-9", // NOTE: doesn't get overwritten by config-store()
     align: horizon,
-    footer: self => self.info.title,
+    footer: self => self.info.titulo,
     config-info(
-      title: title,
-      subtitle: subtitle,
-      course: course,
-      professor: professor,
-      authors: authors,
-      date: [Perú, #if (date != none) { date } else { fecha_str(datetime.today()) }],
+      titulo: titulo,
+      subtitulo: subtitulo,
+      curso: curso,
+      docente: docente,
+      autores: autores,
+      fecha: [Perú, #if (fecha != none) { fecha } else { fecha_str(datetime.today()) }],
       institution: [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO],
       faculty: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
       school: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
@@ -124,12 +124,12 @@
             radius: 0.2em,
             text(size: 1.3em, fill: self.colors.secondary, text(
               weight: "medium",
-              info.title,
+              info.titulo,
             ))
               + (
-                if info.subtitle != none {
+                if info.subtitulo != none {
                   linebreak()
-                  text(size: 0.9em, fill: self.colors.secondary, info.subtitle)
+                  text(size: 0.9em, fill: self.colors.secondary, info.subtitulo)
                 }
               ),
           )
@@ -143,14 +143,14 @@
 
         let sep = ":"
         let rows = ()
-        if info.course != none { rows += (smallcaps[Curso], [#sep], [#info.course]) }
-        if info.professor != none { rows += (smallcaps[Docente], [#sep], [#info.professor]) }
-        if info.authors != none {
-          if info.authors.len() > 1 {
+        if info.curso != none { rows += (smallcaps[Curso], [#sep], [#info.curso]) }
+        if info.docente != none { rows += (smallcaps[Docente], [#sep], [#info.docente]) }
+        if info.autores != none {
+          if info.autores.len() > 1 {
             rows += (smallcaps[Integrantes], [#sep], [])
-          } else if info.authors.len() == 1 {
-            let (name, id) = info.authors.at(0)
-            rows += (smallcaps[Alumno], [#sep], [#name (#id)])
+          } else if info.autores.len() == 1 {
+            let (nombre, codigo) = info.autores.at(0)
+            rows += (smallcaps[Alumno], [#sep], [#nombre (#codigo)])
           }
         }
         grid(
@@ -159,12 +159,12 @@
           ..rows,
         )
 
-        if info.authors != none {
+        if info.autores != none {
           block(spacing: 1em)[
 
-            #if info.authors.len() > 1 [
+            #if info.autores.len() > 1 [
               #set par(spacing: 0.75em)
-              #let cols = calc.ceil(info.authors.len() / 4)
+              #let cols = calc.ceil(info.autores.len() / 4)
               #pad(left: 1em)[
                 #grid(
                   align: (left, left) * cols,
@@ -175,10 +175,10 @@
                     y: 2pt,
                   ),
                   ..info
-                    .authors
-                    .map(author => (
-                      [- #author.name],
-                      [(#author.id)],
+                    .autores
+                    .map(autor => (
+                      [- #autor.nombre],
+                      [(#autor.codigo)],
                     ))
                     .flatten()
                 )
@@ -189,7 +189,7 @@
 
         v(1fr)
 
-        if info.date != none {
+        if info.fecha != none {
           set std.align(right + horizon)
           block(spacing: 1em, utils.display-info-date(self))
         }

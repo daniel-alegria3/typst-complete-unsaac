@@ -92,25 +92,25 @@
 }
 
 #let doc-practica-plan-actividades(
-  title: none,
-  author: none,
-  id: none,
-  field: none,
-  period_start: none,
-  schedule: none,
-  company: none,
-  company_manager: none,
-  advisor: none,
-  activities: none,
-  hours_per_day: 6,
-  exclude_weekends: true,
-  exclude_holidays: true,
+  titulo: none,
+  autor: none,
+  codigo: none,
+  area: none,
+  fecha-inicio: none,
+  horario: none,
+  empresa: none,
+  jefe: none,
+  asesor: none,
+  actividades: none,
+  horas-por-dia: 6,
+  excluir-fin-semana: true, // TODO
+  excluir-feriados: true, // TODO
   doc,
 ) = {
-  assert(type(period_start) == datetime, message: "'period_start' must be a datetime")
-  _activities.update(activities.map(act => normalize_activity(act, hours_per_day)))
-  _hours_per_day.update(hours_per_day)
-  _period_start.update(period_start)
+  assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
+  _activities.update(actividades.map(act => normalize_activity(act, horas-por-dia)))
+  _hours_per_day.update(horas-por-dia)
+  _period_start.update(fecha-inicio)
 
   set page(
     paper: "a4",
@@ -146,47 +146,47 @@
   )
 
   _caratula(
-    title: title,
-    author: author,
-    id: id,
-    company: company,
-    field: field,
-    period: get_period_end_str(period_start, hours_per_day, activities),
-    schedule: schedule,
-    hours: calc_total_hours(activities),
+    title: titulo,
+    author: autor,
+    id: codigo,
+    company: empresa,
+    field: area,
+    period: get_period_end_str(fecha-inicio, horas-por-dia, actividades),
+    schedule: horario,
+    hours: calc_total_hours(actividades),
   )
 
   doc
 
   v(1fr)
   _signature_block(
-    company_manager: company_manager,
-    author: author,
-    advisor: advisor,
+    company_manager: jefe,
+    author: autor,
+    advisor: asesor,
   )
   v(1fr)
 }
 
 #let doc-practica-informe-parcial(
-  title: none,
-  author: none,
-  id: none,
-  field: none,
-  period_start: none,
-  schedule: none,
-  company: none,
-  company_manager: none,
-  advisor: none,
-  activities: none,
-  hours_per_day: 6,
-  exclude_weekends: true,
-  exclude_holidays: true,
+  titulo: none,
+  autor: none,
+  codigo: none,
+  area: none,
+  fecha-inicio: none,
+  horario: none,
+  empresa: none,
+  jefe: none,
+  asesor: none,
+  actividades: none,
+  horas-por-dia: 6,
+  excluir-fin-semana: true,
+  excluir-feriados: true,
   doc,
 ) = {
-  assert(type(period_start) == datetime, message: "'period_start' must be a datetime")
-  _activities.update(activities.map(act => normalize_activity(act, hours_per_day)))
-  _hours_per_day.update(hours_per_day)
-  _period_start.update(period_start)
+  assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
+  _activities.update(actividades.map(act => normalize_activity(act, horas-por-dia)))
+  _hours_per_day.update(horas-por-dia)
+  _period_start.update(fecha-inicio)
 
   let margin = 1.5cm
   let binding_margin = 2%
@@ -242,29 +242,30 @@
   )
 
   _caratula(
-    title: title,
-    author: author,
-    id: id,
-    advisor: advisor,
-    company: company,
-    boss: company_manager,
-    field: field,
-    period: get_period_end_str(period_start, hours_per_day, activities),
-    hours: calc_total_hours(activities),
+    title: titulo,
+    author: autor,
+    id: codigo,
+    advisor: asesor,
+    company: empresa,
+    boss: jefe,
+    field: area,
+    period: get_period_end_str(fecha-inicio, horas-por-dia, actividades),
+    schedule: horario,
+    hours: calc_total_hours(actividades),
   )
 
   doc
 
   v(1fr)
   _signature_block(
-    advisor: advisor,
+    advisor: asesor,
   )
   v(1fr)
 }
 
-#let print-activities-table(activities: none) = {
+#let actividades-tabla(actividades: none) = {
   context {
-    let acts = if activities != none { activities } else { _activities.get() }
+    let acts = if actividades != none { actividades } else { _activities.get() }
     if acts == none or acts.len() == 0 { return }
 
     let tcolors = (
@@ -309,9 +310,9 @@
   }
 }
 
-#let print-activities-detailed(activities: none) = {
+#let actividades-parrafos(actividades: none) = {
   context {
-    let acts = if activities != none { activities } else { _activities.get() }
+    let acts = if actividades != none { actividades } else { _activities.get() }
     if acts == none or acts.len() == 0 { return }
 
     let cum = 0
@@ -326,17 +327,19 @@
       let end = activity_end_date(_period_start.get(), _hours_per_day.get(), cum)
 
       [
-        + *#activity* \ #h(1fr) (#start.display(DATE_FMT_STR) - #end.display(DATE_FMT_STR)) \
-          #if details != none { details }
+        + #block(breakable: false)[
+            *#activity* \
+            #h(1fr) (#start.display(DATE_FMT_STR) - #end.display(DATE_FMT_STR)) \
+            #if details != none { details }]
           #v(1em)
       ]
     }
   }
 }
 
-#let print-activities-gantt(activities: none) = {
+#let actividades-gantt(actividades: none) = {
   context {
-    let acts = if activities != none { activities } else { _activities.get() }
+    let acts = if actividades != none { actividades } else { _activities.get() }
     if acts == none or acts.len() == 0 { return }
 
     let gantt_chart = (

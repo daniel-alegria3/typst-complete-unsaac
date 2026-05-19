@@ -1,11 +1,11 @@
 #import "./utils/fecha.typ": fecha_str
 
 #let doc-tarea(
-  course: none,
-  title: none,
-  professor: none,
-  date: none,
-  authors: (),
+  curso: none,
+  titulo: none,
+  docente: none,
+  fecha: none,
+  autores: (),
   doc,
 ) = {
   let margin = 2.54cm
@@ -21,7 +21,7 @@
       outside: margin - binding_margin,
     ),
     // header: align(right + horizon)[
-    //   _ #title _
+    //   _ #titulo _
     // ],
     // numbering: "1",
     // columns: 2,
@@ -128,12 +128,12 @@
       // #v(1fr)
 
       #text(1.35em)[
-        #smallcaps[#course]
+        #smallcaps[#curso]
       ]
 
       #v(1em)
       #text(1.35em)[
-        *#title*
+        *#titulo*
       ]
 
       #v(1.5em)
@@ -141,11 +141,11 @@
         #align(left)[
           #set par(justify: false)
 
-          #if professor != none [
-            DOCENTE: #h(1fr) #professor
+          #if docente != none [
+            DOCENTE: #h(1fr) #docente
           ]
 
-          #if authors.len() > 1 [
+          #if autores.len() > 1 [
             INTEGRANTES:
 
             #grid(
@@ -153,16 +153,16 @@
               row-gutter: 1em,
               align: right,
 
-              ..authors
-                .map(author => (
-                  author.name,
-                  [(#author.id)],
+              ..autores
+                .map(autor => (
+                  autor.nombre,
+                  [(#autor.codigo)],
                 ))
                 .flatten(),
             )
-          ] else if authors.len() == 1 [
-            #let (name, id) = authors.at(0)
-            ALUMNO: #h(7fr) #name (#id)
+          ] else if autores.len() == 1 [
+            #let (nombre, codigo) = autores.at(0)
+            ALUMNO: #h(7fr) #nombre (#codigo)
           ]
         ]
       ]
@@ -172,8 +172,8 @@
       // # NOTE: bottom is not what puts it near foot of page
       #text(1.2em)[
         Perú \
-        #if date != none [
-          #date
+        #if fecha != none [
+          #fecha
         ] else [
           #fecha_str(datetime.today())
         ]

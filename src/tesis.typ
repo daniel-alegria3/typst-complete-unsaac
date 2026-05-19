@@ -1,15 +1,14 @@
 #import "./utils/fecha.typ": fecha_str
 
 #let doc-tesis(
-  title: none,
-  orientator: none,
-  date: none,
-  authors: (),
+  titulo: none,
+  asesor: none,
+  fecha: none,
+  autores: (),
   doc,
 ) = {
   let margin = 2.54cm
-  let binding_margin = 2%
-
+  let binding_margin = 0%
   let escudos_ratio = 50%
 
   //================================ {General} =================================
@@ -21,7 +20,7 @@
       outside: margin - binding_margin,
     ),
     // header: align(right + horizon)[
-    //   _ #title _
+    //   _ #titulo _
     // ],
     // numbering: "1",
     // columns: 2,
@@ -119,7 +118,7 @@
 
       #text(1.23em)[
         #line(length: 100%, stroke: 2.5pt)
-        #smallcaps([*#title*])
+        #smallcaps([*#titulo*])
         #line(length: 100%, stroke: 2.5pt)
       ]
 
@@ -137,14 +136,14 @@
           ],
           [
             Presentado Por: \
-            #for author in authors [
-              #h(1em) #smallcaps([#author]) \
+            #for autor in autores [
+              #h(1em) #smallcaps([#autor]) \
             ]
           ],
           [
-            #if orientator != none [
+            #if asesor != none [
               Asesor: \
-              #h(1em) #smallcaps([#orientator]) \
+              #h(1em) #smallcaps([#asesor]) \
             ]
           ],
         )
@@ -156,8 +155,8 @@
       #v(1fr)
       #text(1.1em)[
         Perú,
-        #if date != none [
-          date
+        #if fecha != none [
+          fecha
         ] else [
           #fecha_str(datetime.today())
         ]
