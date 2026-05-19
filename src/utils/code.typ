@@ -30,10 +30,20 @@
 
 /// This uses a hack, path handling may be improved in the future
 /// https://forum.typst.app/t/why-are-paths-always-relative-to-the-current-file/306/5
-#let src-file(..path, lang: "txt") = {
+#let src-file(..path, lang: auto) = {
   let filename = path.at(0)
+  let inferred = if lang != auto {
+    lang
+  } else {
+    let parts = filename.split(".")
+    if parts.len() > 1 {
+      parts.last()
+    } else {
+      "txt"
+    }
+  }
   src-block(
     title: filename,
-    raw(read(..path), lang: lang),
+    raw(read(..path), lang: inferred),
   )
 }
