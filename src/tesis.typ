@@ -1,3 +1,5 @@
+#import "./utils/fecha.typ": fecha_str
+
 #let doc-tesis(
   title: none,
   orientator: none,
@@ -9,22 +11,6 @@
   let binding_margin = 2%
 
   let escudos_ratio = 50%
-
-  // Temp fix for 'lang: es' not working on datetime()
-  let months = (
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  )
 
   //================================ {General} =================================
   set page(
@@ -170,12 +156,11 @@
       #v(1fr)
       #text(1.1em)[
         Perú,
-        #if date != none {
+        #if date != none [
           date
-        } else {
-          let today = datetime.today()
-          [ #months.at(today.month() - 1) del #today.year() ]
-        }
+        ] else [
+          #fecha_str(datetime.today())
+        ]
       ]
       #v(1em)
 

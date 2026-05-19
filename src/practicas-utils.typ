@@ -1,24 +1,7 @@
+#import "./utils/fecha.typ": get_mes
+
 #let skip_days = (6, 7)
-
 #let hd(day, month) = datetime(year: datetime.today().year(), month: month, day: day)
-
-#let months = (
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-)
-
-#let get_month(date) = months.at(date.month() - 1)
-
 #let holidays = (
   hd(01, 01), // Año Nuevo
   hd(02, 04), // Jueves Santo
@@ -113,9 +96,9 @@
   if total == 0 { return "" }
   let final_date = end_of_working_day(total, period_start, hours_per_day)
   (
-    period_start.display("[day] de " + str(get_month(period_start)) + " de [year]")
+    period_start.display("[day] de " + str(get_mes(period_start)) + " de [year]")
       + " - "
-      + final_date.display("[day] de " + str(get_month(final_date)) + " de [year]")
+      + final_date.display("[day] de " + str(get_mes(final_date)) + " de [year]")
   )
 }
 

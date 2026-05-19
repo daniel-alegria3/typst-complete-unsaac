@@ -1,3 +1,5 @@
+#import "./utils/fecha.typ": fecha_str
+
 #let doc-tarea(
   course: none,
   title: none,
@@ -8,25 +10,7 @@
 ) = {
   let margin = 2.54cm
   let binding_margin = 0%
-
   let escudos_ratio = 70%
-
-  // Temp fix for 'lang: es' not working on datetime()
-  let months = (
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  )
-  let get_month(date) = months.at(date.month() - 1)
 
   //================================ {General} =================================
   set page(
@@ -188,12 +172,11 @@
       // # NOTE: bottom is not what puts it near foot of page
       #text(1.2em)[
         Perú \
-        #if date != none {
-          date
-        } else {
-          let today = datetime.today()
-          [ #get_month(today) del #today.year() ]
-        }
+        #if date != none [
+          #date
+        ] else [
+          #fecha_str(datetime.today())
+        ]
       ]
     ]
   ]
