@@ -285,7 +285,7 @@
       rows.push((
         [#idx],
         act.at("nombre", default: none),
-        act.at("parrafo", default: none),
+        act.at("descripcion", default: none),
         [#start.display(DATE_FMT_STR)],
         [#end.display(DATE_FMT_STR)],
       ))
@@ -311,7 +311,7 @@
   }
 }
 
-#let actividades-parrafos(actividades: none) = {
+#let actividades-contenidos(actividades: none) = {
   context {
     let acts = if actividades != none { actividades } else { _activities.get() }
     if acts == none or acts.len() == 0 { return }
@@ -319,7 +319,7 @@
     let cum = 0
     for act in acts {
       let activity = act.at("nombre", default: none)
-      let details = act.at("parrafo", default: none)
+      let details = act.at("contenido", default: none)
 
       if activity == none { continue }
 

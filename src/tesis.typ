@@ -6,7 +6,9 @@
   asesor: none,
   fecha: none,
   autores: (),
+  titulo-documento: [TESIS],
   /// school specific
+  titulo-profesional: [Ingeniero Informático y de Sistemas],
   facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
   ///
@@ -120,18 +122,18 @@
           align: left,
           [
             Para optar al título profesional de: \
-            #h(1em) #smallcaps([Ingeniero Informático y de Sistemas]) \
+            #h(1em) #smallcaps(titulo-profesional) \
           ],
           [
             Presentado Por: \
             #for autor in autores [
-              #h(1em) #smallcaps([#autor]) \
+              #h(1em) #smallcaps(autor) \
             ]
           ],
           [
             #if asesor != none [
               Asesor: \
-              #h(1em) #smallcaps([#asesor]) \
+              #h(1em) #smallcaps(asesor) \
             ]
           ],
         )
@@ -151,9 +153,9 @@
       ]
       #v(1em)
 
-      #text(0.91em)[#escuela]
+      #text(0.91em, escuela)
 
-      #text(0.78em)[#facultad]
+      #text(0.78em, facultad)
     ]
   ]
   pagebreak()

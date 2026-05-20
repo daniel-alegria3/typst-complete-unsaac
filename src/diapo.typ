@@ -22,6 +22,9 @@
   ///
   doc,
 ) = {
+  set text(lang: "es", region: "pe")
+  set heading(numbering: numbly("{1}.", default: "1.1"))
+
   show: metropolis-theme.with(
     aspect-ratio: "16-9", // NOTE: doesn't get overwritten by config-store()
     align: horizon,
@@ -45,7 +48,6 @@
       // show-notes-on-second-screen: right,
       // datetime-format: "[day]-[month]-[year]", // NOTE: do use this when language support for 'es'
     ),
-
     config-colors(
       primary: rgb("#eb811b"),
       primary-light: rgb("#d6c6b7"),
@@ -63,8 +65,6 @@
       // footer-descent: 0em,
     ),
   )
-
-  set heading(numbering: numbly("{1}.", default: "1.1"))
 
   doc
 }
