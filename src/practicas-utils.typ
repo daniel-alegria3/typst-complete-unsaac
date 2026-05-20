@@ -125,7 +125,7 @@
 }
 
 #let normalize_activity(act, hours_per_day) = {
-  let children = act.at("lista", default: none)
+  let children = act.at("gantt", default: none)
 
   if children == none or children.len() == 0 {
     return act
@@ -149,7 +149,7 @@
     return (
       ..act,
       duracion: parent_duration,
-      lista: children
+      gantt: children
         .enumerate()
         .map(((i, st)) => (
           ..st,
@@ -183,6 +183,6 @@
   (
     ..act,
     duracion: total_duration,
-    lista: normalized_children,
+    gantt: normalized_children,
   )
 }

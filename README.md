@@ -5,7 +5,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
 <!-- TODO: add a table to preview the documents -->
 
 ## Tesis
-```
+```typst
 #import "@preview/unsaac-docs:0.2.1": doc-tesis, src-block, src-file
 
 #set text(size: 5pt)
@@ -20,6 +20,8 @@ practicas pre-profesionales, diapositivas y tareas en general.
   ),
   // facultad: [],
   // escuela: [],
+  // duplex: true,
+  // binding-margin: 5%,
 )
 
 #outline(title: "Tabla de Contenido")
@@ -31,7 +33,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
 
 ## Practicas pre-profesionales
 ### Plan de practicas
-```
+```typst
 #import "@preview/unsaac-docs:0.2.1": doc-practica-plan-actividades, actividades-tabla
 
 #show: doc-practica-plan-actividades.with(
@@ -69,7 +71,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
 ```
 
 ### Informe parcial
-```
+```typst
 #show: doc-practica-informe-parcial.with(
   titulo: [Informe N° 0X - Prácticas Pre Profesionales],
   autor: [Nombre Completo Autor],
@@ -85,7 +87,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
     (
       nombre: [ #lorem(10) ],
       parrafo: [ #lorem(50) ],
-      lista: (
+      gantt: (
         (nombre: [#lorem(10)]),
         (nombre: [#lorem(10)]),
         (nombre: [#lorem(10)]),
@@ -95,7 +97,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
     (
       nombre: [ #lorem(10) ],
       parrafo: [ #lorem(50) ],
-      lista: (
+      gantt: (
         (nombre: [#lorem(10)], duracion: 18),
         (nombre: [#lorem(10)], duracion: 12),
         (nombre: [#lorem(10)], duracion: 24),
@@ -105,6 +107,8 @@ practicas pre-profesionales, diapositivas y tareas en general.
   // facultad: [],
   // escuela: [],
   // escuela-logo: image("ejemplo.png"),
+  // duplex: true,
+  // binding-margin: 5%,
 )
 
 = Diagrama de actividades
@@ -124,7 +128,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
 ```
 
 ## Tareas
-````
+````typst
 #import "@preview/unsaac-docs:0.2.1": doc-tarea, src-block, src-file
 
 #show: doc-tarea.with(
@@ -144,6 +148,8 @@ practicas pre-profesionales, diapositivas y tareas en general.
   // facultad: [],
   // escuela: [],
   // escuela-logo: image("ejemplo.png"),
+  // duplex: true,
+  // binding-margin: 5%,
 )
 
 #set heading(numbering: none)
@@ -164,7 +170,7 @@ practicas pre-profesionales, diapositivas y tareas en general.
 Usa (touying)[https://typst.app/universe/package/touying], para aprender mas
 acerca de customizacion, ver su (documentacion)[https://touying-typ.github.io/docs/reference].
 
-```
+```typst
 #import "@preview/unsaac-docs:0.2.1": diapo-funcs, src-block, src-file
 #import diapo-funcs: *
 

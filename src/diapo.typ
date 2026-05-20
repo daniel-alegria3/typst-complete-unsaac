@@ -1,8 +1,9 @@
 #import "@preview/touying:0.7.3": *
+#import "@preview/numbly:0.1.0": numbly
 #import "./utils/fecha.typ": fecha_str
 
-#import themes.metropolis: *
 /// TODO: dont just use metropolis
+#import themes.metropolis: *
 /// - [x] dewdrop: how to have its block style
 /// - [x] metropolis: its main vibe
 /// - [ ] aqua: to learn to have background
@@ -21,8 +22,6 @@
   ///
   doc,
 ) = {
-  import "@preview/numbly:0.1.0": numbly
-
   show: metropolis-theme.with(
     aspect-ratio: "16-9", // NOTE: doesn't get overwritten by config-store()
     align: horizon,
@@ -34,7 +33,6 @@
       docente: docente,
       autores: autores,
       date: [Perú, #if (fecha != none) { fecha } else { fecha_str(datetime.today()) }],
-      institution: [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO],
       faculty: facultad,
       school: escuela,
       school-logo: escuela-logo,
@@ -47,12 +45,13 @@
       // show-notes-on-second-screen: right,
       // datetime-format: "[day]-[month]-[year]", // NOTE: do use this when language support for 'es'
     ),
+
     config-colors(
       primary: rgb("#eb811b"),
       primary-light: rgb("#d6c6b7"),
       secondary: rgb("#23373b"),
       neutral-lightest: rgb("#fafafa"),
-      neutral-dark: rgb("#2f373b"),
+      neutral-dark: rgb("#23373b"),
       neutral-darkest: rgb("#23373b"),
     ),
     config-methods(
@@ -108,7 +107,7 @@
               columns: (2fr, 9fr, 2fr),
               image("../imgs/unsaac_logo.png"),
               [
-                #if info.institution != none { info.institution }
+                [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO]
 
                 #if info.faculty != none { info.faculty }
 
@@ -144,7 +143,7 @@
 
         line(length: 100%, stroke: .05em + self.colors.primary)
 
-        set text(size: .8em)
+        set text(size: 0.8em)
 
         let sep = ":"
         let rows = ()
@@ -200,7 +199,7 @@
         }
 
         if extra != none {
-          set text(size: .8em)
+          set text(size: 0.8em)
           block(spacing: 1em, extra)
         }
       },

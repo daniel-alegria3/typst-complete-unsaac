@@ -1,4 +1,5 @@
 #import "@preview/gantty:0.5.1": gantt
+#import "@preview/numbly:0.1.0": numbly
 #import "practicas-utils.typ": (
   activity_end_date, activity_start_date, calc_total_hours, get_period_end, get_period_end_str,
   normalize_activity,
@@ -125,15 +126,14 @@
 
   set page(
     paper: "a4",
+    // binding: start, // TODO: wait till its supported for 'duplex' param
     flipped: true,
     margin: (
-      rest: 1.5cm,
-      top: 1.5cm,
+      rest: 2cm,
     ),
   )
   set text(
     font: "TeX Gyre Termes",
-    size: 11pt,
     spacing: 0.35em,
     lang: "es",
     region: "pe",
@@ -143,18 +143,9 @@
     leading: 0.65em,
     justify: true,
   )
-  set heading(
-    numbering: "1.",
-  )
-
-  show heading.where(
-    level: 1,
-  ): set block(below: 1em)
-
-  set list(
-    indent: 1.2em,
-    spacing: 0.85em,
-  )
+  set heading(numbering: "1.")
+  show heading.where(level: 1): set block(below: 1em)
+  set list(indent: 1.2em, spacing: 0.85em)
 
   _caratula(
     title: titulo,
@@ -201,6 +192,8 @@
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
   escuela-logo: image("../imgs/escuela_logo.png"),
   ///
+  duplex: false,
+  binding-margin: 0%,
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
@@ -208,21 +201,27 @@
   _hours_per_day.update(horas-por-dia)
   _period_start.update(fecha-inicio)
 
-  let margin = 1.5cm
-  let binding_margin = 2%
+  let margin = 2cm
+  let margins = if duplex {
+    (
+      inside: margin + binding-margin,
+      outside: margin - binding-margin,
+    )
+  } else {
+    (
+      left: margin + binding-margin,
+    )
+  }
 
   set page(
     paper: "a4",
     margin: (
-      rest: 1.5cm,
-      // left: margin + binding_margin,
-      // inside: margin + binding_margin,
-      // outside: margin - binding_margin,
+      ..margins,
+      rest: margin,
     ),
   )
   set text(
     font: "TeX Gyre Termes",
-    size: 11pt,
     spacing: 0.35em,
     lang: "es",
     region: "pe",
@@ -232,34 +231,12 @@
     leading: 0.65em,
     justify: true,
   )
-  set heading(
-    numbering: "1.",
-  )
-
-  show heading.where(
-    level: 1,
-  ): set block(below: 1em)
-
-  set list(
-    indent: 1.2em,
-    spacing: 0.85em,
-  )
-  set enum(
-    indent: 1.2em,
-    spacing: 0.85em,
-  )
-  // TODO: https://discord.com/channels/1054443721975922748/1388236879115321404
-  set enum(
-    full: true,
-    numbering: (..args) => {
-      let nums = args.pos()
-      let style_per_level = ("1.", "a)", "(i)")
-      numbering(
-        style_per_level.at(nums.len() - 1, default: "1."),
-        nums.at(nums.len() - 1),
-      )
-    },
-  )
+  set heading(numbering: "1.")
+  show heading.where(level: 1): set block(below: 1em)
+  set list(indent: 1.2em, spacing: 0.85em)
+  set enum(indent: 1.2em, spacing: 0.85em)
+  /// TODO: https://github.com/typst/typst/issues/905
+  set enum(full: true, numbering: numbly("{1}.", "{2:a})", "({3})", default: "1."))
 
   _caratula(
     title: titulo,
@@ -372,12 +349,13 @@
         .map(((act_i, act)) => (
           name: [#act.nombre],
           subtasks: act
-            .lista
+            .gantt
             .enumerate()
             .map(((i, st)) => {
+              // hack because inside context can't access external variable
               let hours = (
                 acts.slice(0, act_i).fold(0, (acc, x) => acc + x.at("duracion", default: 0))
-                  + act.lista.slice(0, i).fold(0, (acc, x) => acc + x.at("duracion", default: 0))
+                  + act.gantt.slice(0, i).fold(0, (acc, x) => acc + x.at("duracion", default: 0))
               )
               let start = activity_start_date(_period_start.get(), _hours_per_day.get(), hours)
               hours += st.at("duracion", default: 0)

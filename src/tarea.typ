@@ -1,3 +1,4 @@
+#import "@preview/numbly:0.1.0": numbly
 #import "./utils/fecha.typ": fecha_str
 
 #let doc-tarea(
@@ -11,28 +12,33 @@
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
   escuela-logo: image("../imgs/escuela_logo.png"),
   ///
+  duplex: false,
+  binding-margin: 0%,
   doc,
 ) = {
   let margin = 2.54cm
-  let binding_margin = 0%
+  let margins = if duplex {
+    (
+      inside: margin + binding-margin,
+      outside: margin - binding-margin,
+    )
+  } else {
+    (
+      left: margin + binding-margin,
+    )
+  }
 
   //================================ {General} =================================
   set page(
     paper: "a4",
     margin: (
+      ..margins,
       rest: margin,
-      inside: margin + binding_margin,
-      outside: margin - binding_margin,
     ),
-    // header: align(right + horizon)[
-    //   _ #titulo _
-    // ],
-    // numbering: "1",
-    // columns: 2,
   )
   set text(
     font: "TeX Gyre Termes",
-    size: 11pt,
+    // size: 11pt,
     spacing: 0.35em,
     lang: "es",
     region: "pe",
@@ -49,51 +55,12 @@
   set document()
 
   //=============================== {Overrides} ================================
-  show outline.entry.where(
-    level: 1,
-  ): set block(above: 1.4em)
-
-  show heading.where(
-    level: 1,
-  ): set block(below: 1em)
-
-  set list(
-    indent: 1.2em,
-    spacing: 0.85em,
-  )
-
-  set enum(
-    indent: 1.2em,
-    spacing: 0.85em,
-  )
-
-  // TODO: https://discord.com/channels/1054443721975922748/1388236879115321404
-  set enum(
-    full: true,
-    numbering: (..args) => {
-      let nums = args.pos()
-      let style_per_level = ("1.", "a)", "(i)")
-      numbering(
-        style_per_level.at(nums.len() - 1, default: "1."),
-        nums.at(nums.len() - 1),
-      )
-    },
-  )
-
-  // show heading: it => [
-  //   #set align(center)
-  //   #set text(13pt, weight: "regular")
-  //   #block(smallcaps(it.body))
-  // ]
-  //
-  // show heading.where(
-  //   level: 2
-  // ): it => text(
-  //   size: 11pt,
-  //   weight: "regular",
-  //   style: "italic",
-  //   it.body + [.],
-  // )
+  show outline.entry.where(level: 1): set block(above: 1.4em)
+  show heading.where(level: 1): set block(below: 1em)
+  set list(indent: 1.2em, spacing: 0.85em)
+  set enum(indent: 1.2em, spacing: 0.85em)
+  /// TODO: https://github.com/typst/typst/issues/905
+  set enum(full: true, numbering: numbly("{1}.", "{2:a})", "({3})", default: "1."))
 
   //================================ {Caratula} ================================
   page(
@@ -172,7 +139,6 @@
 
 
       #v(1fr)
-      // # NOTE: bottom is not what puts it near foot of page
       #text(1.2em)[
         Perú \
         #if fecha != auto [
