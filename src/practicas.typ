@@ -2,7 +2,7 @@
 #import "@preview/numbly:0.1.0": numbly
 #import "practicas-utils.typ": (
   activity_end_date, activity_start_date, calc_total_hours, get_period_end, get_period_end_str,
-  normalize_activity,
+  is_working_day, normalize_activity,
 )
 
 #let DATE_FMT_STR = "[day]/[month]/[year]"
@@ -120,6 +120,7 @@
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
+  assert(is_working_day(fecha-inicio), message: "'fecha-inicio' must be a working day (not a weekend or holiday)")
   _activities.update(actividades.map(act => normalize_activity(act, horas-por-dia)))
   _hours_per_day.update(horas-por-dia)
   _period_start.update(fecha-inicio)
@@ -197,6 +198,7 @@
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
+  assert(is_working_day(fecha-inicio), message: "'fecha-inicio' must be a working day (not a weekend or holiday)")
   _activities.update(actividades.map(act => normalize_activity(act, horas-por-dia)))
   _hours_per_day.update(horas-por-dia)
   _period_start.update(fecha-inicio)
@@ -361,24 +363,15 @@
               hours += st.at("duracion", default: 0)
               let end = activity_end_date(_period_start.get(), _hours_per_day.get(), hours)
 
-              // end = end + duration(days: 2)
-              // assert(
-              //   st.at("duracion", default: 0) <= _hours_per_day.get(),
-              //   // message: repr(_hours_per_day.get()),
-              //   message: repr(end),
-              // )
-              /// hack to get a one day task displayed on the gantt
-              let end = if st.at("duracion", default: 0) <= _hours_per_day.get() {
-                end + duration(days: 1)
-              } else {
-                end
-              }
-
+              // end_of_working_day returns the last inclusive working day;
+              // gantty expects an exclusive end, so always advance by 1.
+              // Clamp: a partial-day subtask whose hours don't push the cumulative
+              // total past the next day boundary gets end == prev subtask's end < start.
+              // Show it for at least 1 day starting from start.
               (
                 name: st.at("nombre", default: none),
                 start: start,
-                end: end,
-                // done: end,
+                end: (if end < start { start } else { end }) + duration(days: 1),
               )
             }),
         )),
@@ -387,7 +380,6 @@
     [
       #set text(size: 0.70em)
       #gantt(gantt_chart)
-      #repr(gantt_chart)
     ]
   }
 }

@@ -11,7 +11,7 @@
   empresa: [Nombre de la Empresa],
   jefe: [],
   area: [Soporte y tecnología de la información],
-  fecha-inicio: datetime(day: 01, month: 01, year: 2001),
+  fecha-inicio: datetime(day: 02, month: 01, year: 2001),
   horario: [Lunes a viernes, 09:00 – 13:00 hrs y 18:00 – 20:00],
   horas-por-dia: 6,
   actividades: (
