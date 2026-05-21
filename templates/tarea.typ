@@ -1,4 +1,4 @@
-#import "@preview/unsaac-docs:0.2.1": doc-tarea, src-block, src-file
+#import "@preview/complete-unsaac:0.2.1": doc-tarea, src-block, src-file
 
 #show: doc-tarea.with(
   titulo: [Laboratorio 03: Derivadas Parciales y Gradiente],

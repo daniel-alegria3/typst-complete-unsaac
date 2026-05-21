@@ -1,4 +1,4 @@
-#import "@preview/unsaac-docs:0.2.1": diapo-funcs, src-block, src-file
+#import "@preview/complete-unsaac:0.2.1": diapo-funcs, src-block, src-file
 #import diapo-funcs: *
 
 #show: doc-diapo.with(

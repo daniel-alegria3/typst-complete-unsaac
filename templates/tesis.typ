@@ -1,4 +1,4 @@
-#import "@preview/unsaac-docs:0.2.1": doc-tesis
+#import "@preview/complete-unsaac:0.2.1": doc-tesis
 
 #show: doc-tesis.with(
   titulo: [Titulo del trabajo de Tesis],

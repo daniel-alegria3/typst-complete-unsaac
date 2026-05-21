@@ -1,13 +1,13 @@
 [package]
-name = "unsaac-docs"
+name = "complete-unsaac"
 version = "0.2.1"
 entrypoint = "lib.typ"
 authors = ["Daniel A. Sallo <ccusdanielalegriasallo7@gmail.com>"]
 license = "MIT"
-description = "Coleccion de plantillas para trabajos de la UNSAAC."
-repository = "https://github.com/daniel-alegria3/typst-unsaac"
+description = "Coleccion de plantillas para documentos academicos de la UNSAAC."
+repository = "https://github.com/daniel-alegria3/typst-complete-unsaac"
 categories = ["thesis", "report", "presentation"]
-keywords = ["universidad", "unsaac", "tesis", "trabajo", "reporte", "presentation"]
+keywords = ["universidad", "unsaac", "tesis", "trabajo", "reporte", "presentacion"]
 exclude = ["example.*"]
 
 [template]

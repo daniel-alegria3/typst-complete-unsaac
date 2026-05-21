@@ -1,4 +1,4 @@
-#import "@preview/unsaac-docs:0.2.1": (
+#import "@preview/complete-unsaac:0.2.1": (
   actividades-contenidos, actividades-gantt, doc-practica-informe-parcial,
 )
 

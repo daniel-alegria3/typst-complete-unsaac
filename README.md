@@ -1,4 +1,4 @@
-# Documentos UNSAAC
+# Complete UNSAAC
 
 Coleccion no oficial de plantillas en [Typst](https://typst.app/) para
 documentos academicos de la Universidad Nacional de San Antonio Abad del Cusco
@@ -19,7 +19,7 @@ Basada en la
 [plantilla de overleaf](https://www.overleaf.com/latex/templates/plantilla-tesis-unsaac/psghqhfpnhpm).
 
 ```typst
-#import "@preview/unsaac-docs:0.2.1": doc-tesis
+#import "@preview/complete-unsaac:0.2.1": doc-tesis
 
 #show: doc-tesis.with(
   titulo: [Titulo del trabajo de Tesis],
@@ -46,7 +46,7 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
 ### Plan de prácticas
 
 ```typst
-#import "@preview/unsaac-docs:0.2.1": doc-practica-plan-actividades, actividades-tabla
+#import "@preview/complete-unsaac:0.2.1": doc-practica-plan-actividades, actividades-tabla
 
 #show: doc-practica-plan-actividades.with(
   titulo: [Plan de Prácticas Pre Profesionales],
@@ -77,7 +77,7 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
 ### Informe parcial
 
 ```typst
-#import "@preview/unsaac-docs:0.2.1": doc-practica-informe-parcial, actividades-contenidos, actividades-gantt
+#import "@preview/complete-unsaac:0.2.1": doc-practica-informe-parcial, actividades-contenidos, actividades-gantt
 
 #show: doc-practica-informe-parcial.with(
   titulo: [Informe $N degree$ 01 - Prácticas Pre Profesionales],
@@ -122,7 +122,7 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
 
 ## Tareas
 ````typst
-#import "@preview/unsaac-docs:0.2.1": doc-tarea
+#import "@preview/complete-unsaac:0.2.1": doc-tarea
 
 #show: doc-tarea.with(
   titulo: [Laboratorio 01: Nombre de la tarea],
@@ -152,7 +152,7 @@ Basado en [Touying](https://typst.app/universe/package/touying). Para opciones
 avanzadas de personalización, consulta su [documentación oficial](https://touying-typ.github.io/docs/reference).
 
 ```typst
-#import "@preview/unsaac-docs:0.2.1": diapo-funcs
+#import "@preview/complete-unsaac:0.2.1": diapo-funcs
 #import diapo-funcs: *
 
 #show: doc-diapo.with(
