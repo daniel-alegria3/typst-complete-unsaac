@@ -45,11 +45,12 @@
   new_date
 }
 
+#let is_working_day(date) = {
+  not (holidays.contains(date) or skip_days.contains(date.weekday()))
+}
+
 #let end_of_working_day(n, period_start, hours_per_day) = {
-  if (
-    n <= hours_per_day
-      and not (holidays.contains(period_start) or skip_days.contains(period_start.weekday()))
-  ) {
+  if n <= hours_per_day {
     return period_start
   }
   let days_needed = calc.ceil(n / hours_per_day)
