@@ -52,7 +52,7 @@
   ) {
     return period_start
   }
-  let days_needed = calc.ceil(calc.quo(n, hours_per_day))
+  let days_needed = calc.ceil(n / hours_per_day)
   let date = period_start
   let days_counted = 0
   while days_counted < days_needed {
