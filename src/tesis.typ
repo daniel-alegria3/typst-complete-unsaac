@@ -93,7 +93,7 @@
       #set par(first-line-indent: 0em)
 
       #block(height: 8.35cm)[
-        #image("../imgs/unsaac_logo.png"),
+        #image("imgs/unsaac_logo.png"),
       ]
 
       #text(1.23em)[

@@ -10,7 +10,7 @@
   /// school specific
   facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
-  escuela-logo: image("../imgs/escuela_logo.png"),
+  escuela-logo: image("imgs/escuela_logo.png"),
   ///
   duplex: false,
   binding-margin: 0%,
@@ -90,7 +90,7 @@
       #block(height: 6cm)[
         #grid(
           columns: (1fr, 1fr),
-          image("../imgs/unsaac_logo.png"), escuela-logo,
+          image("imgs/unsaac_logo.png"), escuela-logo,
         )
       ]
 

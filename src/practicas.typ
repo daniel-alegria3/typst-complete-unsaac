@@ -49,7 +49,7 @@
           // column-gutter: 3em,
           column-gutter: 10pt,
           align: (right + horizon, center + horizon, left + horizon),
-          image("../imgs/unsaac_logo.png"), middle, school-logo,
+          image("imgs/unsaac_logo.png"), middle, school-logo,
         )
       ]
     })
@@ -115,7 +115,7 @@
   /// school specific
   facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
-  escuela-logo: image("../imgs/escuela_logo.png"),
+  escuela-logo: image("imgs/escuela_logo.png"),
   ///
   doc,
 ) = {
@@ -191,7 +191,7 @@
   /// school specific
   facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
-  escuela-logo: image("../imgs/escuela_logo.png"),
+  escuela-logo: image("imgs/escuela_logo.png"),
   ///
   duplex: false,
   binding-margin: 0%,

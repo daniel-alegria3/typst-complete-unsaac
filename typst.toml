@@ -1,8 +1,9 @@
 [package]
 name = "complete-unsaac"
 version = "0.2.1"
+# compiler = "0.14.2"
 entrypoint = "lib.typ"
-authors = ["Daniel A. Sallo <ccusdanielalegriasallo7@gmail.com>"]
+authors = ["Daniel A. Sallo <ccusdanielalegriasallo@gmail.com>"]
 license = "MIT"
 description = "Coleccion de plantillas para documentos academicos de la UNSAAC."
 repository = "https://github.com/daniel-alegria3/typst-complete-unsaac"

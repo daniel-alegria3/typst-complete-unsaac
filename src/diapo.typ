@@ -18,7 +18,7 @@
   /// school specific
   facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
   escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
-  escuela-logo: image("../imgs/escuela_logo.png"),
+  escuela-logo: image("imgs/escuela_logo.png"),
   ///
   doc,
 ) = {
@@ -105,7 +105,7 @@
           block(height: 4.45cm)[
             #grid(
               columns: (2fr, 9fr, 2fr),
-              image("../imgs/unsaac_logo.png"),
+              image("imgs/unsaac_logo.png"),
               [
                 [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO]
 
