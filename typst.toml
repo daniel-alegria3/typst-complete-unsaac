@@ -9,3 +9,8 @@ repository = "https://github.com/daniel-alegria3/typst-unsaac"
 categories = ["thesis", "report", "presentation"]
 keywords = ["universidad", "unsaac", "tesis", "trabajo", "reporte", "presentation"]
 exclude = ["example.*"]
+
+[template]
+path = "templates"
+entrypoint = "tesis.typ"
+thumbnail = "thumbnail.png"

@@ -361,7 +361,13 @@
               hours += st.at("duracion", default: 0)
               let end = activity_end_date(_period_start.get(), _hours_per_day.get(), hours)
 
-              // hack to get a one day task displayed on the gantt
+              // end = end + duration(days: 2)
+              // assert(
+              //   st.at("duracion", default: 0) <= _hours_per_day.get(),
+              //   // message: repr(_hours_per_day.get()),
+              //   message: repr(end),
+              // )
+              /// hack to get a one day task displayed on the gantt
               let end = if st.at("duracion", default: 0) <= _hours_per_day.get() {
                 end + duration(days: 1)
               } else {
@@ -381,6 +387,7 @@
     [
       #set text(size: 0.70em)
       #gantt(gantt_chart)
+      #repr(gantt_chart)
     ]
   }
 }

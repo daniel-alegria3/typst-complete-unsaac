@@ -117,19 +117,20 @@
 
           #if autores.len() > 1 [
             INTEGRANTES:
-
-            #grid(
-              columns: (7fr, 1fr),
-              row-gutter: 1em,
-              align: right,
-
-              ..autores
-                .map(autor => (
-                  autor.nombre,
-                  [(#autor.codigo)],
-                ))
-                .flatten(),
-            )
+            #align(end)[
+              #grid(
+                columns: (auto, auto),
+                row-gutter: 1em,
+                column-gutter: 0.55em,
+                align: right,
+                ..autores
+                  .map(autor => (
+                    autor.nombre,
+                    [(#autor.codigo)],
+                  ))
+                  .flatten(),
+              )
+            ]
           ] else if autores.len() == 1 [
             #let (nombre, codigo) = autores.at(0)
             ALUMNO: #h(7fr) #nombre (#codigo)
