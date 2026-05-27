@@ -1,4 +1,4 @@
-#import "@preview/complete-unsaac:0.2.1": diapo-funcs, src-block, src-file
+#import "@preview/complete-unsaac:0.2.2": diapo-funcs, src-block, src-file
 #import diapo-funcs: *
 
 #show: doc-diapo.with(
@@ -18,7 +18,7 @@
   ),
   // facultad: [],
   // escuela: [],
-  // escuela-logo: image("ejemplo.png"),
+  // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
 )
 
 /*

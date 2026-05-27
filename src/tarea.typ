@@ -1,4 +1,3 @@
-#import "@preview/numbly:0.1.0": numbly
 #import "./utils/fecha.typ": fecha_str
 
 #let doc-tarea(
@@ -8,8 +7,8 @@
   fecha: auto,
   autores: (),
   /// school specific
-  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
-  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  escuela: [Ingeniería Informática y de Sistemas],
   escuela-logo: image("imgs/escuela_logo.png"),
   ///
   duplex: false,
@@ -60,7 +59,17 @@
   set list(indent: 1.2em, spacing: 0.85em)
   set enum(indent: 1.2em, spacing: 0.85em)
   /// TODO: https://github.com/typst/typst/issues/905
-  set enum(full: true, numbering: numbly("{1}.", "{2:a})", "({3})", default: "1."))
+  set enum(
+    full: true,
+    numbering: (..args) => {
+      let nums = args.pos()
+      let style_per_level = ("1.", "a)", "(i)")
+      numbering(
+        style_per_level.at(nums.len() - 1, default: "1."),
+        nums.at(nums.len() - 1),
+      )
+    },
+  )
 
   //================================ {Caratula} ================================
   page(
@@ -76,13 +85,17 @@
     )[
       #set par(first-line-indent: 0em)
 
-      #text(1.35em)[
-        UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO
-      ]
+      #text(1.35em, upper[
+        Universidad Nacional de San Antonio Abad Del Cusco
+      ])
 
-      #text(1.40em)[#facultad]
+      #text(1.40em, upper[
+        Facultad de #facultad
+      ])
 
-      #text(1.26em)[#escuela]
+      #text(1.26em, upper[
+        Escuela Profesional de #escuela
+      ])
 
       // #v(1fr)
       #v(3em)
@@ -150,7 +163,7 @@
       ]
     ]
   ]
-  pagebreak()
+  pagebreak(weak: true)
 
   //============================= {Document Body} ==============================
   doc

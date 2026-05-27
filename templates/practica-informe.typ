@@ -1,4 +1,4 @@
-#import "@preview/complete-unsaac:0.2.1": (
+#import "@preview/complete-unsaac:0.2.2": (
   actividades-contenidos, actividades-gantt, doc-practica-informe-parcial,
 )
 
@@ -18,7 +18,7 @@
   actividades: acts01,
   // facultad: [],
   // escuela: [],
-  // escuela-logo: image("ejemplo.png"),
+  // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
   // duplex: true,
   // binding-margin: 5%,
 )

@@ -1,5 +1,4 @@
 #import "@preview/gantty:0.5.1": gantt
-#import "@preview/numbly:0.1.0": numbly
 #import "practicas-utils.typ": (
   activity_end_date, activity_start_date, calc_total_hours, get_period_end, get_period_end_str,
   is_working_day, normalize_activity,
@@ -23,6 +22,7 @@
   schedule: none,
   hours: none,
   /// school specific
+  university: none,
   faculty: none,
   school: none,
   school-logo: none,
@@ -38,10 +38,13 @@
     #set text(size: 0.85em, weight: "bold")
     #layout(size => {
       let middle = [
-        #text(1.55em)[_ #title _] \
-        UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO \
-        #faculty \
-        #school \
+        #text(1.55em)[_ #title _] #h(0pt, weak: true)
+
+        #university #h(0pt, weak: true)
+
+        #faculty #h(0pt, weak: true)
+
+        #school #h(0pt, weak: true)
       ]
       block(height: 2.95cm)[
         #grid(
@@ -113,14 +116,17 @@
   excluir-fin-semana: true, // TODO
   excluir-feriados: true, // TODO
   /// school specific
-  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
-  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  escuela: [Ingeniería Informática y de Sistemas],
   escuela-logo: image("imgs/escuela_logo.png"),
   ///
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
-  assert(is_working_day(fecha-inicio), message: "'fecha-inicio' must be a working day (not a weekend or holiday)")
+  assert(
+    is_working_day(fecha-inicio),
+    message: "'fecha-inicio' must be a working day (not a weekend or holiday)",
+  )
   _activities.update(actividades.map(act => normalize_activity(act, horas-por-dia)))
   _hours_per_day.update(horas-por-dia)
   _period_start.update(fecha-inicio)
@@ -158,8 +164,9 @@
     schedule: horario,
     hours: calc_total_hours(actividades),
     ///
-    faculty: facultad,
-    school: escuela,
+    university: upper[Universidad Nacional de San Antonio Abad Del Cusco],
+    faculty: upper[Facultad de #facultad],
+    school: upper[Escuela Profesional de #escuela],
     school-logo: escuela-logo,
   )
 
@@ -189,8 +196,8 @@
   excluir-fin-semana: true,
   excluir-feriados: true,
   /// school specific
-  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
-  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  escuela: [Ingeniería Informática y de Sistemas],
   escuela-logo: image("imgs/escuela_logo.png"),
   ///
   duplex: false,
@@ -198,7 +205,10 @@
   doc,
 ) = {
   assert(type(fecha-inicio) == datetime, message: "'fecha-inicio' must be a datetime")
-  assert(is_working_day(fecha-inicio), message: "'fecha-inicio' must be a working day (not a weekend or holiday)")
+  assert(
+    is_working_day(fecha-inicio),
+    message: "'fecha-inicio' must be a working day (not a weekend or holiday)",
+  )
   _activities.update(actividades.map(act => normalize_activity(act, horas-por-dia)))
   _hours_per_day.update(horas-por-dia)
   _period_start.update(fecha-inicio)
@@ -238,7 +248,17 @@
   set list(indent: 1.2em, spacing: 0.85em)
   set enum(indent: 1.2em, spacing: 0.85em)
   /// TODO: https://github.com/typst/typst/issues/905
-  set enum(full: true, numbering: numbly("{1}.", "{2:a})", "({3})", default: "1."))
+  set enum(
+    full: true,
+    numbering: (..args) => {
+      let nums = args.pos()
+      let style_per_level = ("1.", "a)", "(i)")
+      numbering(
+        style_per_level.at(nums.len() - 1, default: "1."),
+        nums.at(nums.len() - 1),
+      )
+    },
+  )
 
   _caratula(
     title: titulo,
@@ -252,8 +272,9 @@
     schedule: horario,
     hours: calc_total_hours(actividades),
     ///
-    faculty: facultad,
-    school: escuela,
+    university: upper[Universidad Nacional de San Antonio Abad Del Cusco],
+    faculty: upper[Facultad de #facultad],
+    school: upper[Escuela Profesional de #escuela],
     school-logo: escuela-logo,
   )
 

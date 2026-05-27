@@ -1,4 +1,4 @@
-#import "@preview/complete-unsaac:0.2.1": actividades-tabla, doc-practica-plan-actividades
+#import "@preview/complete-unsaac:0.2.2": actividades-tabla, doc-practica-plan-actividades
 
 #import "actividades/mes01.typ": acts01
 #import "actividades/mes02.typ": acts02
@@ -20,7 +20,7 @@
   ),
   // facultad: [],
   // escuela: [],
-  // escuela-logo: image("ejemplo.png"),
+  // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
 )
 
 #v(1em)

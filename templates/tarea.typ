@@ -1,4 +1,4 @@
-#import "@preview/complete-unsaac:0.2.1": doc-tarea, src-block, src-file
+#import "@preview/complete-unsaac:0.2.2": doc-tarea, src-block, src-file
 
 #show: doc-tarea.with(
   titulo: [Laboratorio 03: Derivadas Parciales y Gradiente],
@@ -14,9 +14,9 @@
       codigo: "201302",
     ),
   ),
-  // facultad: [],
-  // escuela: [],
-  // escuela-logo: image("ejemplo.png"),
+  // facultad: highlight[Titulo del trabajo de Tesis],
+  // escuela: highlight[Ingrese su E.P.],
+  // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
   // duplex: true,
   // binding-margin: 5%,
 )

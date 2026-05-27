@@ -1,102 +1,109 @@
-#import "@preview/complete-unsaac:0.2.1": doc-tesis
+#import "@preview/complete-unsaac:0.2.2": (
+  corolario, definicion, doc-tesis, sty-tesis-anexos, sty-tesis-base, sty-tesis-post, sty-tesis-pre,
+  teorema,
+)
+#import "@preview/complete-unsaac:0.2.2": corolario, definicion, teorema
+
+#let facu = highlight[Ingrese su facultad]
+#let ep = highlight[Ingrese su E.P.]
+#let titulo = highlight[Titulo del trabajo de Tesis]
+#let titulo-prof = highlight[Ingrese su grado académico]
 
 #show: doc-tesis.with(
-  titulo: [Titulo del trabajo de Tesis],
+  titulo: titulo,
   asesor: [Nombre completo Asesor],
+  co-asesor: [Nombre completo Co-Asesor],
   autores: (
     "Nombre Completo Autor 1",
     "Nombre Completo Autor 2",
   ),
-  titulo-documento: [PLAN DE TESIS],
-  facultad: [INGRESE SU FACULTAD],
-  escuela: [INGRESE SU E.P.],
-  titulo-academico: [INGRESE SU GRADO ACADÉMICO],
+  titulo-documento: [PLANTILLA DE TESIS],
+  facultad: facu,
+  escuela: ep,
+  titulo-academico: titulo-prof,
   // duplex: true,
   // binding-margin: 2%,
 )
 
 // =========================== PÁGINAS PRELIMINARES ============================
-#set page(numbering: "I")
-#counter(page).update(2)
+#show: sty-tesis-pre
 
-// --- Presentación ---
-#heading(numbering: none)[PRESENTACIÓN]
+= Presentación
 
-*SEÑOR:* DECANO DE LA FACULTAD DE INGRESE SU FACULTAD DE LA UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD
-DEL CUSCO \
-*SEÑOR:* DIRECTOR DE LA ESCUELA PROFESIONAL DE INGRESE SU E.P. \
-*SEÑORES:* DOCENTES MIEMBROS DEL JURADO
+#[
+  #set par(first-line-indent: 0em)
 
-Con la conformidad del reglamento de grados y títulos de la Escuela Profesional de Ingrese su E.P.,
-pongo a consideración el presente trabajo de tesis intitulado: *"TITULO DEL TRABAJO DE
-INVESTIGACIÓN"* para optar al Título Profesional de *INGRESE SU TÍTULO/LICENCIATURA*.
+  *SEÑOR:* DECANO DE LA FACULTAD DE #upper(facu) DE LA UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL
+  CUSCO \
+  *SEÑOR:* DIRECTOR DE LA ESCUELA PROFESIONAL DE #upper(ep) \
+  *SEÑORES:* DOCENTES MIEMBROS DEL JURADO
 
-#lorem(50)
+  Con la conformidad del reglamento de grados y títulos de la Escuela Profesional de #upper[ep],
+  pongo a consideración el presente trabajo de tesis intitulado: *"#titulo"* para optar al Título
+  Profesional de *#titulo-prof*.
 
-#lorem(20)
-
-#align(right)[
-  Atentamente,
-
-  Br. Nombre completo del autor
-]
-#pagebreak()
-
-// --- Dedicatoria ---
-#heading(numbering: none)[DEDICATORIA]
-
-#align(right)[
   #lorem(50)
+
+  #lorem(20)
+
+  #align(right)[
+    Atentamente,
+
+    Br. Nombre completo del autor
+  ]
+]
+
+= Dedicatoria
+#pad(left: 30%)[
+  #set align(right)
+
+  #lorem(50)
+
+  #v(1cm)
 
   _Nombre del autor_
 ]
-#pagebreak()
 
-// --- Agradecimiento ---
-#heading(numbering: none)[AGRADECIMIENTO]
-
+= Agradecimiento
 #lorem(150)
-#pagebreak()
 
-// --- Índices ---
-#outline(title: "Índice")
-#pagebreak()
+= Índice
+#outline(title: none)
 
-#outline(title: "Índice de Tablas", target: figure.where(kind: table))
-#pagebreak()
+= Índice de Tablas
+#outline(title: none, target: figure.where(kind: table))
 
-#outline(title: "Índice de Figuras", target: figure.where(kind: image))
-#pagebreak()
+= Índice de Figuras
+#outline(title: none, target: figure.where(kind: image))
 
-// --- Resumen ---
-#heading(numbering: none)[RESUMEN]
-
+= Resumen
 #lorem(100)
 
 *Palabras clave:* #lorem(10)
-#pagebreak()
 
-// --- Abstract ---
-#heading(numbering: none)[ABSTRACT]
+= Abstract
 
 #lorem(100)
 
 *Keywords:* #lorem(10)
-#pagebreak()
 
 // --- Introducción ---
-#heading(numbering: none)[INTRODUCCIÓN]
+= Introducción
 
-#lorem(250)
-#pagebreak()
+#lorem(80)
+
+#lorem(80)
+
+#lorem(80)
+
+#lorem(80)
+
+#lorem(80)
 
 // =========================== CONTENIDO PRINCIPAL =============================
-#set page(numbering: "1")
-#counter(page).update(1)
+#show: sty-tesis-base
 
-// =========================== CAPÍTULO I ======================================
-= PLANTEAMIENTO DEL PROBLEMA
-
+= Planteamiento del problema
 == Descripción de la situación problemática
 
 #lorem(200)
@@ -133,8 +140,7 @@ INVESTIGACIÓN"* para optar al Título Profesional de *INGRESE SU TÍTULO/LICENC
 
 #lorem(50)
 
-// =========================== CAPÍTULO II =====================================
-= MARCO TEÓRICO CONCEPTUAL
+= Marco teórico conceptual
 
 == Antecedentes
 === Antecedentes internacionales
@@ -149,57 +155,71 @@ INVESTIGACIÓN"* para optar al Título Profesional de *INGRESE SU TÍTULO/LICENC
 
 #lorem(100)
 
-== Bases Teóricas
+== Bases Teóricas <sec>
 
 Asimismo en la plantilla se pueden incluir figuras, tablas y fórmulas. Los ejemplos se muestran a
 continuación:
 
-#figure(
-  // image("ruta/a/imagen.png", width: 13.5cm),
-  rect(width: 13.5cm, height: 8cm, fill: luma(230)),
-  caption: [Conducta de inventario en el modelo clásico económica de pedido (EOQ)],
-)
+#block[
+  #figure(
+    // image("ruta/a/imagen.png", width: 13.5cm),
+    rect(width: 13.5cm, height: 8cm, fill: luma(230)),
+    caption: [
+      Conducta de inventario en el modelo clásico económica de pedido (EOQ)
+    ],
+  )
+] <img>
+*Fuente:* Elaboración propia.
 
 #figure(
+  kind: table,
+  caption: [Resumen de actividades basadas en costos (ABC)],
   table(
-    columns: (auto, auto, 1fr, 1fr),
+    columns: (auto, auto, auto, auto),
+    align: left,
     table.header(
-      [*Grupo*], [*% de Costos*], [*% ocupación del inventario*], [*Usar técnicas cuantitativas*]
+      [*Grupo*],
+      [*(%) de Costos*],
+      [*(%) ocupación del inventario*],
+      [*Usar técnicas cuantitativas*],
     ),
     [*A*], [$70%$], [$10%$], [Si],
     [*B*], [$20%$], [$20%$], [Los que tienen costos altos],
     [*C*], [$10%$], [$70%$], [No],
   ),
-  caption: [Resumen de actividades basadas en costos (ABC)],
-  kind: table,
-)
+) <tbl>
 
-Para insertar definiciones, teoremas y corolarios:
+Para insertar definiciones, teoremas y corolarios: #definicion[
+  Sea $bold(f): D -> RR^m$, donde $D subset RR^n$, entonces $bold(f(x))$ tiene límite
+  $bold(L) = (L_1, L_2, dots.h, L_m)$ cuando $bold(x) -> bold(a)$, si para cada $epsilon > 0$ existe
+  $delta > 0$ tal que $norm(bold(f(x)) - bold(L)) < epsilon$ para todo
+  $bold(x) in D inter N_delta^d (bold(a))$.
+] <def>
 
-*Definición:* Sea $bold(f): D -> RR^m$, donde $D subset RR^n$, entonces $bold(f(x))$ tiene límite
-$bold(L) = (L_1, L_2, dots.h, L_m)$ cuando $bold(x) -> bold(a)$, si para cada $epsilon > 0$ existe
-$delta > 0$ tal que $norm(bold(f(x)) - bold(L)) < epsilon$ para todo
-$bold(x) in D inter N_delta^d (bold(a))$.
+#teorema[
+  Sea $f$ definida en un punto $x_0$. Si $f$ tiene una derivada en $x_0$, entonces es continua en
+  $x_0$.
+] <teo>
 
-*Teorema:* Sea $f$ definida en un punto $x_0$. Si $f$ tiene una derivada en $x_0$, entonces es
-continua en $x_0$.
-
-*Corolario:* Sea esto un corolario en $f$.
+#corolario[Sea esto un corolario en $f$.] <col>
 
 Insertar ecuaciones:
 
-$ A = B + C $
+$ A = B + C $ <eq>
 
 == Marco conceptual
 
-*Primer marco:* #lorem(30)
+#[
+  #set par(first-line-indent: 0em)
+  *Primer marco:* #lorem(20)
 
-*Segundo marco:* #lorem(30)
+  *Segundo marco:* #lorem(20)
+]
 
-// =========================== CAPÍTULO III ====================================
-= HIPÓTESIS Y VARIABLES
+= Hipótesis y variables
 
 == Hipótesis
+
 === Hipótesis general
 
 #lorem(50)
@@ -223,12 +243,15 @@ $ A = B + C $
 
 #lorem(100)
 
-== Operacionalización de variables
-
 #page(flipped: true)[
+  == Operacionalización de variables
+
   #figure(
+    kind: table,
+    caption: [Matriz de operacionalización de variables],
     table(
       columns: 5,
+      align: (left, left, left, right, right),
       table.header([*Variable*], [*Definición*], [*Indicador*], [*Tipo*], [*Escala*]),
       [Variable dependiente 1], [#lorem(10)], [Indicador 1], [Tipo D1], [Escala D1],
       [Variable dependiente 2], [#lorem(10)], [Indicador 2], [Tipo D2], [Escala D2],
@@ -242,13 +265,10 @@ $ A = B + C $
       [Subind3], [Subind3 tipo], [Subind3 razón],
       [Subind4], [Subind4 tipo], [Subind4 razón],
     ),
-    caption: [Matriz de operacionalización de variables],
-    kind: table,
   )
 ]
 
-// =========================== CAPÍTULO IV =====================================
-= METODOLOGÍA
+= Metodología
 
 == Tipo de investigación
 
@@ -295,18 +315,19 @@ $ A = B + C $
 
 #lorem(100)
 
-// =========================== CAPÍTULO V ======================================
-= RESULTADOS
+= Resultados
 
 #lorem(500)
 
-// =========================== SECCIONES FINALES ===============================
 
-#heading(numbering: none)[DISCUSIONES]
+// =========================== SECCIONES FINALES ===============================
+#show: sty-tesis-post
+
+= Discusiones
 
 #lorem(300)
 
-#heading(numbering: none)[CONCLUSIONES]
+= Conclusiones
 
 Según los resultados obtenidos mediante el trabajo de investigación se obtienen las siguientes
 conclusiones:
@@ -317,7 +338,7 @@ conclusiones:
 + #lorem(30)
 + #lorem(30)
 
-#heading(numbering: none)[RECOMENDACIONES]
+= Recomendaciones
 
 + #lorem(30)
 + #lorem(30)
@@ -328,17 +349,18 @@ conclusiones:
 
 // =========================== BIBLIOGRAFÍA ====================================
 
-#heading(numbering: none)[BIBLIOGRAFÍA]
+= Bibliografía
 
 // Reemplazar con la ruta al archivo .bib:
 // #bibliography("contenido/bibliog.bib", style: "apa")
 
 // =========================== ANEXOS ==========================================
+#show: sty-tesis-anexos
 
-#heading(numbering: none)[ANEXOS]
+= Anexos
 
 #page(flipped: true)[
-  == A. Matriz de consistencia
+  == Matriz de consistencia
 
   #table(
     columns: 5,

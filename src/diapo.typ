@@ -1,5 +1,4 @@
 #import "@preview/touying:0.7.3": *
-#import "@preview/numbly:0.1.0": numbly
 #import "./utils/fecha.typ": fecha_str
 
 /// TODO: dont just use metropolis
@@ -16,14 +15,14 @@
   autores: (),
   fecha: none,
   /// school specific
-  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
-  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  escuela: [Ingeniería Informática y de Sistemas],
   escuela-logo: image("imgs/escuela_logo.png"),
   ///
   doc,
 ) = {
   set text(lang: "es", region: "pe")
-  set heading(numbering: numbly("{1}.", default: "1.1"))
+  set heading(numbering: "1.")
 
   show: metropolis-theme.with(
     aspect-ratio: "16-9", // NOTE: doesn't get overwritten by config-store()
@@ -107,11 +106,11 @@
               columns: (2fr, 9fr, 2fr),
               image("imgs/unsaac_logo.png"),
               [
-                [UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO]
+                #upper[Universidad Nacional de San Antonio Abad Del Cusco]
 
-                #if info.faculty != none { info.faculty }
+                #if info.faculty != none { upper[Facultad de #info.faculty] }
 
-                #if info.school != none { info.school }
+                #if info.school != none { upper[Escuela Profesional de #info.school] }
               ],
               info.school-logo,
             )
