@@ -12,6 +12,7 @@ tambien se provee funciones auxiliares simples:
 - `src-file`: Mismo que `src-block` pero acepta la ruta de un archivo
 - `get-mes`: Obtener el mes de un objeto `datetime` en español
 - `fecha-str`: Obtener una cuerda formateada en español
+- `definicion`, `teorema`, `corolario`: Custom `figures` para mostrar eso mismo
 
 ## Tesis / Plan de tesis
 
@@ -24,14 +25,15 @@ Basada en la
 #show: doc-tesis.with(
   titulo: [Titulo del trabajo de Tesis],
   asesor: [Nombre completo Asesor],
+  co-asesor: [Nombre completo Co-Asesor],
   autores: (
     "Nombre Completo Autor 1",
     "Nombre Completo Autor 2",
   ),
   titulo-documento: [PLAN DE TESIS],
   titulo-academico: [Ingeniero Informático y de Sistemas],
-  facultad: [FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA],
-  escuela: [ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS],
+  // facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  // escuela: [Ingeniería Informática y de Sistemas],
   // duplex: true,       // activa márgenes para impresión doble cara
   // binding-margin: 2%, // margen extra en el lado de encuadernado
 )
@@ -66,8 +68,8 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
       duracion: 30,
     ),
   ),
-  // facultad: [],
-  // escuela: [],
+  // facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  // escuela: [Ingeniería Informática y de Sistemas],
   // escuela-logo: image("logo.png"),
 )
 
@@ -109,8 +111,8 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
       duracion: 30,
     ),
   ),
-  // facultad: [],
-  // escuela: [],
+  // facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  // escuela: [Ingeniería Informática y de Sistemas],
   // escuela-logo: image("logo.png"),
   // duplex: true,
   // binding-margin: 5%,
@@ -138,8 +140,8 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
       codigo: "200002",
     ),
   ),
-  // facultad: [],
-  // escuela: [],
+  // facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  // escuela: [Ingeniería Informática y de Sistemas],
   // escuela-logo: image("logo.png"),
   // duplex: true,
   // binding-margin: 2%,
@@ -170,8 +172,8 @@ avanzadas de personalización, consulta su [documentación oficial](https://touy
       codigo: "200002",
     ),
   ),
-  // facultad: [],
-  // escuela: [],
+  // facultad: [Ingeniería Eléctrica, Electrónica, Informática y Mecánica],
+  // escuela: [Ingeniería Informática y de Sistemas],
   // escuela-logo: image("logo.png"),
 )
 ```
