@@ -8,9 +8,7 @@
 #cite(<haquehua2025modelo>, form: "prose") desarrollaró el trabajo _''Modelo de inventarios aplicado
 al control de almacén del centro de salud integral La Fuente del Cusco, 2024''_ en donde esta
 plantilla fue realizada. Si deseas ver el trabajo de investigación subido, ingresa al siguiente link
-#link(
-  "https://repositorio.unsaac.edu.pe/handle/20.500.12918/11440",
-)
+#link("https://repositorio.unsaac.edu.pe/handle/20.500.12918/11440")
 
 === Antecedentes nacionales
 
@@ -40,7 +38,7 @@ Como se muestra en @img.
 ]
 _ *Fuente:* @haquehua2025modelo _
 
-Asimismo para colocar una tabla se usa el siguiente comando, la Tabla @tbl resume el análisis ABC.
+Asimismo para colocar una tabla se usa el siguiente comando, la @tbl resume el análisis ABC.
 
 #figure(
   kind: table,
@@ -78,9 +76,16 @@ Para insertar definiciones, teoremas y corolarios usamos el siguiente esquema
 
 #corolario[Sea esto un corolario en $f$] <col>
 
+Según @def, el límite de $bold(f(x))$ existe si para cada $epsilon > 0$ existe un $delta > 0$ tal
+que la función se aproxima arbitrariamente a $bold(L)$. A partir de @teo, si $f$ es derivable en
+$x_0$ entonces es continua en $x_0$, resultado que se complementa con @col. Los fundamentos
+matemáticos necesarios para el análisis se desarrollan en la @sec.
+
 Insertar ecuaciones
 
 $ A = B + C $ <eq>
+
+Como indica @eq, la variable $A$ puede expresarse como la suma de $B$ y $C$.
 
 == Marco conceptual
 
