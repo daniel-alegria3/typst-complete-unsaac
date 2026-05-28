@@ -28,11 +28,11 @@
   supplement: [#thm_supplement],
   caption: none,
   numbering: _ => "",
-  block(spacing: 1em, breakable: false, context {
+  block(breakable: false, context {
     counter("thm-" + thm_kind).step()
     let loc = here()
     let tag = _section_tag(loc) + "." + str(_local_n("thm-" + thm_kind, loc))
-    [#metadata(tag) <thm-tag>*#thm_kind #tag.* #body]
+    [#metadata(tag) <thm-tag>*#thm_supplement #tag.* #body]
   }),
 )
 
@@ -63,9 +63,9 @@
       let loc = el.location()
       let prefix = _section_tag(loc)
       if el.func() == math.equation {
-        link(loc)[Ecuación (#prefix.#str(_local_n("equation", loc)))]
+        link(loc)[Ecuación #prefix.#str(_local_n("equation", loc))]
       } else if el.func() == figure and el.kind in _THM_KINDS {
-        link(loc)[#el.kind #prefix.#str(_local_n("thm-" + el.kind, loc))]
+        link(loc)[#el.supplement #prefix.#str(_local_n("thm-" + el.kind, loc))]
       } else {
         it
       }
