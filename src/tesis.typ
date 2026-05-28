@@ -51,6 +51,7 @@
   set document()
 
   //=============================== {Overrides} ================================
+  let _THM_KINDS = ("definicion", "teorema", "corolario")
   show outline.entry: it => {
     /// INSPIRED BY: https://typst.app/universe/package/outrageous
     let repeat(gap: none, body) = layout(size => context {
@@ -68,9 +69,7 @@
       } else {
         (it.prefix(), it.body(), box(width: 1fr, fill_dots), sym.wj + it.page())
       }
-    } else if (
-      el.func() == figure and (el.kind == table or el.kind == image or el.kind == math.equation)
-    ) {
+    } else if (el.func() == figure and (el.kind == table or el.kind == image)) {
       let num_str = context numbering(
         el.numbering,
         ..counter(figure.where(kind: el.kind)).at(el.location()),
@@ -78,6 +77,34 @@
       (
         strong([#el.caption.supplement #num_str]),
         el.caption.body,
+        box(width: 1fr, fill_dots),
+        sym.wj + it.page(),
+      )
+    } else if el.func() == math.equation {
+      let metas = query(<eq-tag>).filter(m => m.value != "")
+      let ep = el.location().position()
+      let matched = metas.filter(m => {
+        let mp = m.location().position()
+        mp.page == ep.page and mp.y >= ep.y
+      })
+      let tag = if matched.len() > 0 { matched.first().value } else { "?" }
+      (
+        strong(el.supplement),
+        strong(tag),
+        box(width: 1fr, fill_dots),
+        sym.wj + it.page(),
+      )
+    } else if el.func() == figure and el.kind in _THM_KINDS {
+      let metas = query(<thm-tag>).filter(m => m.value != "")
+      let ep = el.location().position()
+      let matched = metas.filter(m => {
+        let mp = m.location().position()
+        mp.page == ep.page and mp.y >= ep.y
+      })
+      let tag = if matched.len() > 0 { matched.first().value } else { "?" }
+      (
+        strong(el.supplement),
+        strong(tag),
         box(width: 1fr, fill_dots),
         sym.wj + it.page(),
       )
@@ -103,6 +130,18 @@
 
   set list(indent: 1.2em, spacing: 2.4em)
   set enum(indent: 1.2em, spacing: 2.4em)
+  show table.cell: it => {
+    set par(
+      justify: false,
+      first-line-indent: 1em,
+      leading: 0.65em,
+      spacing: 1em,
+    )
+    set list(indent: 0.5em, spacing: 0.6em)
+    set enum(indent: 0.5em, spacing: 0.6em)
+    it
+  }
+
   /// TODO: https://github.com/typst/typst/issues/905
   set enum(
     full: true,
@@ -291,7 +330,7 @@
       numbering: none,
     )[
       #set align(center + horizon)
-      #text(size: 2em, weight: "bold")[#upper(it.body)]
+      #text(size: 1.5em, weight: "bold")[#upper(it.body)]
     ]
   }
   show heading.where(level: 2): set heading(

@@ -4,7 +4,7 @@
   pa.page < pb.page or (pa.page == pb.page and pa.y < pb.y)
 }
 
-#let _THM_KINDS = ("Definición", "Teorema", "Corolario")
+#let _THM_KINDS = ("definicion", "teorema", "corolario")
 
 #let _local_n(key, loc) = {
   let last_sub = query(heading.where(level: 1).or(heading.where(level: 2))).filter(h => _loc_before(
@@ -23,36 +23,37 @@
   str(h.at(0, default: 0)) + "." + str(h.at(1, default: 0))
 }
 
-#let _thm_block(thm_kind, body) = figure(
+#let _thm_block(thm_kind, thm_supplement, body) = figure(
   kind: thm_kind,
-  supplement: [#thm_kind],
+  supplement: [#thm_supplement],
   caption: none,
   numbering: _ => "",
   block(spacing: 1em, breakable: false, context {
     counter("thm-" + thm_kind).step()
     let loc = here()
     let tag = _section_tag(loc) + "." + str(_local_n("thm-" + thm_kind, loc))
-    [*#thm_kind #tag.* #body]
+    [#metadata(tag) <thm-tag>*#thm_kind #tag.* #body]
   }),
 )
 
-#let definicion(body) = _thm_block("Definición", body)
-#let teorema(body) = _thm_block("Teorema", body)
-#let corolario(body) = _thm_block("Corolario", body)
+#let definicion(body) = _thm_block("definicion", "Definición", body)
+#let teorema(body) = _thm_block("teorema", "Teorema", body)
+#let corolario(body) = _thm_block("corolario", "Corolario", body)
 
 #let sty-math(doc) = {
-  show figure.where(kind: "Definición"): set align(left)
-  show figure.where(kind: "Teorema"): set align(left)
-  show figure.where(kind: "Corolario"): set align(left)
+  show figure.where(kind: "definicion"): set align(left)
+  show figure.where(kind: "teorema"): set align(left)
+  show figure.where(kind: "corolario"): set align(left)
 
   set math.equation(numbering: "(1)")
   show math.equation.where(block: true): it => context {
     let loc = here()
-    let tag = "(" + _section_tag(loc) + "." + str(_local_n("equation", loc)) + ")"
+    let tag = _section_tag(loc) + "." + str(_local_n("equation", loc))
+    [#metadata(tag) <eq-tag>]
     grid(
       columns: (1fr, auto),
       align: (center, right),
-      it.body, tag,
+      it.body, [(#tag)],
     )
   }
   show ref: it => {
