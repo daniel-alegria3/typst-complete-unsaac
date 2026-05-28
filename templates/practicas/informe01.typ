@@ -5,7 +5,7 @@
 #import "actividades/mes01.typ": acts01
 
 #show: doc-practica-informe-parcial.with(
-  titulo: [Informe N° 0X - Prácticas Pre Profesionales],
+  titulo: [Informe N° 01 - Prácticas Pre Profesionales],
   autor: [Nombre Completo Autor],
   codigo: 100001,
   asesor: [],
@@ -16,8 +16,8 @@
   // horario: [Lunes a viernes, 09:00 – 13:00 hrs y 18:00 – 20:00],
   horas-por-dia: 6,
   actividades: acts01,
-  // facultad: [],
-  // escuela: [],
+  // facultad: highlight[Ingrese su facultad],
+  // escuela: highlight[Ingrese su E.P.],
   // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
   // duplex: true,
   // binding-margin: 5%,

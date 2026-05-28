@@ -16,8 +16,8 @@
       codigo: "200002",
     ),
   ),
-  // facultad: [],
-  // escuela: [],
+  // facultad: highlight[Ingrese su facultad],
+  // escuela: highlight[Ingrese su E.P.],
   // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
 )
 

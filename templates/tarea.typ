@@ -14,7 +14,7 @@
       codigo: "201302",
     ),
   ),
-  // facultad: highlight[Titulo del trabajo de Tesis],
+  // facultad: highlight[Ingrese su facultad],
   // escuela: highlight[Ingrese su E.P.],
   // escuela-logo: rect(height: 100%)[Ponga la imagen de su escudo aca],
   // duplex: true,
