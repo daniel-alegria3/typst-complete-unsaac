@@ -1,6 +1,11 @@
 # Complete UNSAAC
 
-Coleccion no oficial de plantillas en [Typst](https://typst.app/) para
+<p align="center"><em>
+  Unofficial collection of Typst templates for academic
+  documents at the Universidad Nacional de San Antonio Abad del Cusco.
+</em></p>
+
+Coleccion no oficial de plantillas [Typst](https://typst.app/) para
 documentos academicos de la Universidad Nacional de San Antonio Abad del Cusco
 (UNSAAC). Incluye plantillas para tesis, prácticas pre-profesionales,
 diapositivas y tareas.
@@ -151,7 +156,8 @@ final de cada actividad automaticamente (ignorando fines de semana y feriados).
 ## Diapositivas
 
 Basado en [Touying](https://typst.app/universe/package/touying). Para opciones
-avanzadas de personalización, consulta su [documentación oficial](https://touying-typ.github.io/docs/reference).
+avanzadas de personalización, consulta su
+[documentación oficial](https://touying-typ.github.io/docs/reference).
 
 ```typst
 #import "@preview/complete-unsaac:0.2.2": diapo-funcs
@@ -177,3 +183,8 @@ avanzadas de personalización, consulta su [documentación oficial](https://touy
   // escuela-logo: image("logo.png"),
 )
 ```
+
+## License
+Code is licensed under [MIT](LICENSE). The UNSAAC logos are property of the
+Universidad Nacional de San Antonio Abad del Cusco and are not covered by this
+license.
